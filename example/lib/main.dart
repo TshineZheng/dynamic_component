@@ -95,9 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              setState(() {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CodeEditorPage()));
-              });
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const CodeEditorPage()));
             },
             tooltip: 'export dsl',
             child: const Text('Export'),
