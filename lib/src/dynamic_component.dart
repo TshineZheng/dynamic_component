@@ -19,7 +19,7 @@ abstract class DynamicComponent extends StatelessWidget {
   /// 初始化，主要就是把本库必要的 [WidgetParser] 加入 [DynamicWidgetBuilder]
   static init() {
     DynamicWidgetBuilder.addParser(TapDetctorParse());
-    DynamicWidgetBuilder.addParser(IFOrNotParse());
+    DynamicWidgetBuilder.addParser(IfOrNotParse());
   }
 
   /// 业务数据

@@ -27,7 +27,7 @@ class IfOrNot extends StatelessWidget {
   }
 }
 
-class IFOrNotParse extends WidgetParser {
+class IfOrNotParse extends WidgetParser {
   @override
   Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
     var realWidget = widget as IfOrNot;
