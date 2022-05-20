@@ -18,7 +18,8 @@ const _dslJson = '''
             "#title#": "goods_name",
             "#content#": "goods_detail",
             "#image#": "goods_image",
-            "#isliked#": "isliked"
+            "#isliked#": "isliked",
+            "#createdAt#": "createdAt"
         },
         "child": {
             "type": "Container",
@@ -171,6 +172,26 @@ const _dslJson = '''
                                         "textScaleFactor": null
                                     }
                                 },
+                                {
+                                        "type": "Text",
+                                        "data": "#createdAt#",
+                                        "textAlign": "start",
+                                        "overflow": null,
+                                        "maxLines": 1,
+                                        "semanticsLabel": null,
+                                        "softWrap": null,
+                                        "textDirection": "ltr",
+                                        "style": {
+                                            "color": null,
+                                            "debugLabel": null,
+                                            "decoration": "none",
+                                            "fontSize": 16,
+                                            "fontFamily": null,
+                                            "fontStyle": "normal",
+                                            "fontWeight": "normal"
+                                        },
+                                        "textScaleFactor": null
+                                  },
                                 {
                                     "type": "SizedBox",
                                     "width": null,
