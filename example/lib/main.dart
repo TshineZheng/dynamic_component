@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:math';
 
@@ -8,7 +10,6 @@ import 'package:example/util/widget_json.dart';
 import 'package:example/widget/flexible_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'model/goods.dart';
@@ -36,15 +37,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -97,11 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => CodeEditorPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const CodeEditorPage()));
               });
             },
             tooltip: 'export dsl',
-            child: Text('Export'),
+            child: const Text('Export'),
           ),
           const SizedBox(height: 10),
           FloatingActionButton(
@@ -160,7 +159,7 @@ class AdjustableScrollController extends ScrollController {
 }
 
 class CodeEditorPage extends StatefulWidget {
-  const CodeEditorPage();
+  const CodeEditorPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -177,7 +176,7 @@ class _CodeEditorPageState extends State<CodeEditorPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 500)).then((value) {
+    Future.delayed(const Duration(milliseconds: 500)).then((value) {
       var exportor = key.currentWidget as DynamicWidgetJsonExportor;
       controller.text = getPrettyJSONString(exportor.exportJsonString());
     });
@@ -187,7 +186,7 @@ class _CodeEditorPageState extends State<CodeEditorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("DSL Export"),
+        title: const Text("DSL Export"),
       ),
       body: Stack(
         children: [
@@ -202,12 +201,12 @@ class _CodeEditorPageState extends State<CodeEditorPage> {
             children: <Widget>[
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.all(8),
-                  padding: EdgeInsets.all(8),
-                  constraints: BoxConstraints.expand(width: double.infinity, height: double.infinity),
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
+                  constraints: const BoxConstraints.expand(width: double.infinity, height: double.infinity),
                   child: TextField(
                     controller: controller,
-                    decoration: InputDecoration(hintText: 'Enter json string'),
+                    decoration: const InputDecoration(hintText: 'Enter json string'),
                     maxLines: 1000000,
                   ),
                 ),
@@ -220,7 +219,7 @@ class _CodeEditorPageState extends State<CodeEditorPage> {
   }
 
   String getPrettyJSONString(String jsonString) {
-    var encoder = new JsonEncoder.withIndent("  ");
+    var encoder = const JsonEncoder.withIndent("  ");
     return encoder.convert(json.decode(jsonString));
   }
 }
