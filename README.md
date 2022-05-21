@@ -9,4 +9,4 @@ Build your Dynamic components that support simple logic and variable
   - [x] Tap Event (Multiple)
 - [x] codegen
 
-See also: https://pub.flutter-io.cn/packages/dynamic_component
+See also: https://pub.dev/packages/dynamic_component
