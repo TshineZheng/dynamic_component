@@ -4,7 +4,7 @@ import 'package:source_gen/source_gen.dart';
 import 'src/config.dart';
 import 'src/dynamic_component_generator.dart';
 
-Builder dynamicComponentCodegen(BuilderOptions options) {
+Builder makeBuilder(BuilderOptions options) {
   return SharedPartBuilder([
     DynamicComponentGenerator(
       Config(

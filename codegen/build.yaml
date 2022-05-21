@@ -7,8 +7,8 @@ targets:
 builders:
   dynamic_component_codegen:
     import: "package:dynamic_component_codegen/builder.dart"
-    builder_factories: ["dynamicComponentCodegen"]
-    build_extensions: {".dart": ["dynamic_component.g.part"]}
-    auto_apply: dependents
+    builder_factories: ["makeBuilder"]
+    build_extensions: {".dart": [".g.part"]}
+    auto_apply: root_package
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]

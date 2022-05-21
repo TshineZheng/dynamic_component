@@ -44,7 +44,7 @@ abstract class DynamicComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (dslInfo == null || (kDebugMode && !kTestDSL)) {
-      return buildWidget(context);
+      return localBuild(context);
     }
 
     return FutureBuilder<Widget>(
@@ -58,7 +58,7 @@ abstract class DynamicComponent extends StatelessWidget {
             // print(dslInfo?.getDataChildDSL(data ?? {}) ?? '');
             print(snapshot.stackTrace);
           }
-          return buildWidget(context);
+          return localBuild(context);
         }
         return snapshot.hasData && snapshot.data != null ? snapshot.data! : const SizedBox.shrink();
       },
@@ -86,6 +86,10 @@ abstract class DynamicComponent extends StatelessWidget {
     return ret!;
   }
 
+  Widget localBuild(BuildContext context) {
+    return buildWidget(context);
+  }
+
   /// 只有开发模式会走到这里
   Widget buildWidget(BuildContext context);
 }
@@ -93,17 +97,17 @@ abstract class DynamicComponent extends StatelessWidget {
 /// 导出动态参数动态组件需要混入这个，并定义导出的相关信息
 mixin DynamicComponentExportMixin on DynamicComponent implements WidgetParser {
   /// 导出时需要使用
-  late final _ExportInfo _exportInfo;
+  late final GlobalKey _exportChilidKey;
 
   Map<String, dynamic>? get dataRelation;
 
   @override
   Widget build(BuildContext context) {
-    return _ChildHolder(buildWidget(context), key: _exportInfo.exportKey);
+    return _ChildHolder(localBuild(context), key: _exportChilidKey);
   }
 
-  Widget genExport() {
-    _exportInfo = _ExportInfo(exportKey: GlobalKey(), dataRelation: dataRelation ?? {});
+  Widget genExport({GlobalKey? key}) {
+    _exportChilidKey = key ?? GlobalKey();
     return this;
   }
 
@@ -112,11 +116,11 @@ mixin DynamicComponentExportMixin on DynamicComponent implements WidgetParser {
   Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
     var realWidget = widget as DynamicComponentExportMixin;
 
-    var componentChild = realWidget._exportInfo.exportKey.currentWidget as _ChildHolder;
+    var componentChild = realWidget._exportChilidKey.currentWidget as _ChildHolder;
 
     Map<String, dynamic> json = {
       "type": widgetName,
-      "dataRelation": realWidget._exportInfo.dataRelation,
+      "dataRelation": realWidget.dataRelation,
       "child": DynamicWidgetBuilder.export(componentChild.child, buildContext)
     };
 
@@ -135,9 +139,6 @@ mixin DynamicComponentExportMixin on DynamicComponent implements WidgetParser {
 
   @override
   bool matchWidgetForExport(Widget? widget) => widget.runtimeType == widgetType;
-
-  @override
-  Type get widgetType => DynamicComponent;
 }
 
 /// 为了方便导出时，定位组件使用
@@ -260,12 +261,4 @@ class DSLInfo {
     });
     return childString;
   }
-}
-
-class _ExportInfo {
-  final GlobalKey exportKey;
-
-  final Map<String, dynamic> dataRelation;
-
-  _ExportInfo({required this.exportKey, required this.dataRelation});
 }

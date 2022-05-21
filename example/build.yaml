@@ -5,4 +5,3 @@ targets:
         enabled: true
         options:
           debug: true
-        #   bus: 'Application.eventBus'

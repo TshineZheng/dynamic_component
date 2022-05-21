@@ -1,5 +1,6 @@
-class Variables {
-  final List<String> vars;
+class Component {
+  final List<String>? vars;
+  final Type exportClass;
 
-  const Variables(this.vars);
+  const Component({this.vars, required this.exportClass});
 }
