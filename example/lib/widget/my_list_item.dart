@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 
 import '../util/widget_json.dart';
 
+@Variables([
+  'goods_name',
+  'goods_detail',
+  'goods_image',
+  'isliked',
+])
+
 /// 这是一个支持参数传递的动态组件示例
 class MyListItem extends DynamicComponent {
   /// 新组件一般只要复制整个构造函数，改下名字就可以，因为 ParmWidget 是通过 Map 传递参数，所以一般不会需要其他参数。
