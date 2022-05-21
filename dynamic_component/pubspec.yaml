@@ -1,7 +1,7 @@
 name: dynamic_component
-description: A new Flutter package project.
+description: Build your Dynamic components that support simple logic and variable.
 version: 0.0.1
-homepage:
+homepage: https://github.com/TshineZheng/dynamic_component
 
 environment:
   sdk: ">=2.13.0 <3.0.0"

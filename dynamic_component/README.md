@@ -1,39 +1,65 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Build your Dynamic components that support simple logic and variable
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- [x] Dynamic variable  
+- [x] Dynamic UI  
+- [x] Logic  
+  - [x] IF Or Not
+- [x] codegen
 
 ## Getting started
+```yaml
+dependencies:
+  dynamic_component: any
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+dev_dependencies:
+  # option
+  dynamic_component_codegen: any
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+### Create your widget extends DynamicComponent  
+
+*Example code: `example/lib/widget/my_list_item.dart`*  
 
 ```dart
-const like = 'sample';
+import 'package:dynamic_component/dynamic_component.dart';
+import 'package:dynamic_component/dynamic_component_anotation.dart';
+import 'package:example/widget/image_widget.dart';
+
+part 'move_item.g.dart';
+
+@Component(variables: [
+  'movie_name',
+  'movie_image',
+])
+class MovieItem extends DynamicComponent with _$MovieItemComponent {
+  MovieItem({
+    Map<String, dynamic>? data,
+    Key? key,
+  }) : super(data: data, key: key);
+
+  @override
+  Widget buildWidget(BuildContext context) {
+    return Column(
+      children: [
+        Text(movieName),  // genarated，read from data['movie_name']
+        ImageWidget(url: movieImage), // data['movie_image']
+      ],
+    );
+  }
+
+  @override
+  DSLInfo? get dslInfo => null;
+}
 ```
+run `flutter pub run build_runner build` in your terminal
 
-## Additional information
+### Export json  
+*Example code: `example/test/export_all_widget_test.dart`*  
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```dart
+MovieItem(data: _movieItemDataForExport).exportJson(context);
+```
