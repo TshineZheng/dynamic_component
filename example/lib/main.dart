@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:dynamic_component/dynamic_component.dart';
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
           controller: AdjustableScrollController(80),
           child: MasonryGridView.count(
             // 展示几列
-            crossAxisCount: 3,
+            crossAxisCount: Platform.isAndroid || Platform.isIOS ? 2 : 3,
             // 元素总个数
             itemCount: goodsList.length,
             // 纵向元素间距
