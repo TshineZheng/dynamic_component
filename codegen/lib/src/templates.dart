@@ -7,13 +7,8 @@ String tempCode({
   required String widgetName,
   required String variablesDim,
   required String variablesSet,
-  required String exportClassName,
 }) {
   return """
-const _${widgetNameCamelCase}DataRelation = {
-  ${dataRelation}
-};
-
 const _${widgetNameCamelCase}DataForExport = {
   ${dataForExport}
 };
@@ -30,17 +25,14 @@ mixin _\$${widgetName}Component on DynamicComponent {
     _setVariables();
     return super.localBuild(context);
   }
-}
-
-mixin _\$${exportClassName} on DynamicComponentExportMixin {
-  @override
-  String get widgetName => '${widgetName}';
 
   @override
-  Type get widgetType => ${exportClassName};
+  String get widgetType => '${widgetName}';
 
   @override
-  Map<String, String>? get dataRelation => _${widgetNameCamelCase}DataRelation;
+  Map<String, dynamic>? get dataRelation => {
+    ${dataRelation}
+  };
 }
 """;
 }

@@ -34,6 +34,14 @@ abstract class DynamicComponent extends StatelessWidget {
   /// 如果不加这个，在DSL模式下，在列表中滚动会抖屏，建议传入一个简单组件，否则会影像性能
   final Widget? initialWidget;
 
+  /// ====================== 下面是导出时才有用 ======================
+
+  /// 组件名称
+  String get widgetType;
+
+  /// 关系表，导出用
+  Map<String, dynamic>? get dataRelation;
+
   const DynamicComponent({
     this.data,
     this.onTap,
@@ -92,63 +100,13 @@ abstract class DynamicComponent extends StatelessWidget {
 
   /// 只有开发模式会走到这里
   Widget buildWidget(BuildContext context);
-}
 
-/// 导出动态参数动态组件需要混入这个，并定义导出的相关信息
-mixin DynamicComponentExportMixin on DynamicComponent implements WidgetParser {
-  /// 导出时需要使用
-  late final GlobalKey _exportChilidKey;
-
-  Map<String, dynamic>? get dataRelation;
-
-  @override
-  Widget build(BuildContext context) {
-    return _ChildHolder(localBuild(context), key: _exportChilidKey);
-  }
-
-  Widget genExport({GlobalKey? key}) {
-    _exportChilidKey = key ?? GlobalKey();
-    return this;
-  }
-
-  /// 导出时会将动态组件的相关信息写入 json
-  @override
-  Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
-    var realWidget = widget as DynamicComponentExportMixin;
-
-    var componentChild = realWidget._exportChilidKey.currentWidget as _ChildHolder;
-
-    Map<String, dynamic> json = {
-      "type": widgetName,
-      "dataRelation": realWidget.dataRelation,
-      "child": DynamicWidgetBuilder.export(componentChild.child, buildContext)
+  Map<String, dynamic> exportJson(BuildContext context) {
+    return {
+      "type": widgetType,
+      "dataRelation": dataRelation,
+      "child": DynamicWidgetBuilder.export(localBuild(context), context),
     };
-
-    return json;
-  }
-
-  /// 实际生产环境并不会真正解析成对应的 [DynamicComponent]，而是在对应 [DynamicComponent._buildJsonWidget] 方法中解析为静态组件
-  ///
-  /// 为什么不会解析成对应的 [DynamicComponent]? 因为交给 [DynamicWidgetBuilder.build] 的 json 中并不包含 [DynamicComponent] 信息。
-  ///
-  /// 所以下面返回什么都无所谓，压根不会走到这里
-  @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext, ClickListener? listener) {
-    return Container();
-  }
-
-  @override
-  bool matchWidgetForExport(Widget? widget) => widget.runtimeType == widgetType;
-}
-
-/// 为了方便导出时，定位组件使用
-class _ChildHolder extends StatelessWidget {
-  final Widget child;
-  const _ChildHolder(this.child, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return child;
   }
 }
 

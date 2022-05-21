@@ -6,13 +6,6 @@ part of 'my_list_item.dart';
 // DynamicComponentGenerator
 // **************************************************************************
 
-const _myListItemDataRelation = {
-  "#goodsName#": "goods_name",
-  "#goodsDetail#": "goods_detail",
-  "#goodsImage#": "goods_image",
-  "#isliked#": "isliked",
-};
-
 const _myListItemDataForExport = {
   "goods_name": "#goodsName#",
   "goods_detail": "#goodsDetail#",
@@ -38,15 +31,15 @@ mixin _$MyListItemComponent on DynamicComponent {
     _setVariables();
     return super.localBuild(context);
   }
-}
-
-mixin _$MyListItemExport on DynamicComponentExportMixin {
-  @override
-  String get widgetName => 'MyListItem';
 
   @override
-  Type get widgetType => MyListItemExport;
+  String get widgetType => 'MyListItem';
 
   @override
-  Map<String, String>? get dataRelation => _myListItemDataRelation;
+  Map<String, dynamic>? get dataRelation => {
+        "#goodsName#": "goods_name",
+        "#goodsDetail#": "goods_detail",
+        "#goodsImage#": "goods_image",
+        "#isliked#": "isliked",
+      };
 }

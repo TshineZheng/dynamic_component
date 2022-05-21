@@ -22,7 +22,6 @@ void main() {
   DynamicComponent.init();
 
   DynamicWidgetBuilder.addParser(FlexibleParser());
-  DynamicWidgetBuilder.addParser(MyListItemExport());
   DynamicWidgetBuilder.addParser(ImageWidgetParser());
 
   initDSLCache();
@@ -98,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           FloatingActionButton(
             heroTag: 1,
-            onPressed: () => CodeEditorPage.push(context, MyListItemExport()),
+            onPressed: () => CodeEditorPage.push(context, MyListItem.export()),
             tooltip: 'export dsl',
             child: const Text('Export'),
           ),

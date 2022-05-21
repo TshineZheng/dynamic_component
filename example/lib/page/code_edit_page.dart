@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:dynamic_component/dynamic_component.dart';
-import 'package:dynamic_widget/dynamic_widget/basic/dynamic_widget_json_exportor.dart';
 import 'package:flutter/material.dart';
 
 class CodeEditorPage extends StatefulWidget {
-  final DynamicComponentExportMixin widget;
+  final DynamicComponent widget;
   const CodeEditorPage(
     this.widget, {
     Key? key,
@@ -16,13 +15,12 @@ class CodeEditorPage extends StatefulWidget {
     return _CodeEditorPageState();
   }
 
-  static push(BuildContext context, DynamicComponentExportMixin widget) {
+  static push(BuildContext context, DynamicComponent widget) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => CodeEditorPage(widget)));
   }
 }
 
 class _CodeEditorPageState extends State<CodeEditorPage> {
-  GlobalKey key = GlobalKey();
   TextEditingController controller = TextEditingController();
 
   _CodeEditorPageState();
@@ -31,8 +29,7 @@ class _CodeEditorPageState extends State<CodeEditorPage> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      var exportor = key.currentWidget as DynamicWidgetJsonExportor;
-      controller.text = getPrettyJSONString(exportor.exportJsonString());
+      controller.text = getPrettyJSONString(jsonEncode(widget.widget.exportJson(context)));
     });
   }
 
@@ -46,10 +43,6 @@ class _CodeEditorPageState extends State<CodeEditorPage> {
         children: [
           Column(
             children: <Widget>[
-              DynamicWidgetJsonExportor(
-                key: key,
-                child: widget.widget.genExport(),
-              ),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.all(8),

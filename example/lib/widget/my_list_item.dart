@@ -7,15 +7,12 @@ import '../util/widget_json.dart';
 
 part 'my_list_item.g.dart';
 
-@Component(
-  vars: [
-    'goods_name',
-    'goods_detail',
-    'goods_image',
-    'isliked',
-  ],
-  exportClass: MyListItemExport,
-)
+@Component(variables: [
+  'goods_name',
+  'goods_detail',
+  'goods_image',
+  'isliked',
+])
 class MyListItem extends DynamicComponent with _$MyListItemComponent {
   MyListItem({
     required Map<String, dynamic> data,
@@ -105,9 +102,7 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
   }
 
   @override
-  DSLInfo? get dslInfo => getWidgetDSLInfo('MyListItem');
-}
+  DSLInfo? get dslInfo => getWidgetDSLInfo(widgetType);
 
-class MyListItemExport extends MyListItem with DynamicComponentExportMixin, _$MyListItemExport {
-  MyListItemExport({Key? key}) : super(key: key, data: _myListItemDataForExport);
+  static DynamicComponent export() => MyListItem(data: _myListItemDataForExport);
 }

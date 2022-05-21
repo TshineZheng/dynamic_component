@@ -26,12 +26,11 @@ class DynamicComponentGenerator extends GeneratorForAnnotation<Component> {
 
     log('processing class ${clazz.name}');
 
-    final vars = annotation.read('vars').listValue.map((e) => e.toStringValue()!).toList();
+    final vars = annotation.read('variables').listValue.map((e) => e.toStringValue()!).toList();
     final varsCamelCase = vars.map((e) => e.camelCase).toList();
 
     final widgetName = clazz.name;
     final widgetNameCamelCase = widgetName.camelCase;
-    final exportClassName = annotation.read('exportClass').typeValue.getDisplayString(withNullability: false);
 
     final dataRelation = StringBuffer();
     final dataForExport = StringBuffer();
@@ -48,7 +47,6 @@ class DynamicComponentGenerator extends GeneratorForAnnotation<Component> {
     return tempCode(
       dataForExport: dataForExport.toString(),
       dataRelation: dataRelation.toString(),
-      exportClassName: exportClassName,
       variablesDim: variablesDim.toString(),
       variablesSet: variablesSet.toString(),
       widgetName: widgetName,
