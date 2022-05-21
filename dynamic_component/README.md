@@ -6,6 +6,7 @@ Build your Dynamic components that support simple logic and variable
 - [x] Dynamic UI  
 - [x] Logic  
   - [x] IF Or Not
+  - [x] Tap Event (Multiple)
 - [x] codegen
 
 ## Getting started
