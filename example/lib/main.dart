@@ -5,14 +5,15 @@ import 'dart:math';
 
 import 'package:dynamic_component/dynamic_component.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
-import 'package:dynamic_widget/dynamic_widget/basic/dynamic_widget_json_exportor.dart';
 import 'package:example/util/widget_json.dart';
 import 'package:example/widget/flexible_parser.dart';
+import 'package:example/widget/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'model/goods.dart';
+import 'page/code_edit_page.dart';
 import 'util/fake_data.dart';
 import 'widget/my_list_item.dart';
 
@@ -21,6 +22,7 @@ void main() {
 
   DynamicWidgetBuilder.addParser(FlexibleParser());
   DynamicWidgetBuilder.addParser(MyListItemExport());
+  DynamicWidgetBuilder.addParser(ImageWidgetParser());
 
   initDSLCache();
 
@@ -94,14 +96,14 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const CodeEditorPage()));
-            },
+            heroTag: 1,
+            onPressed: () => CodeEditorPage.push(context, MyListItemExport()),
             tooltip: 'export dsl',
             child: const Text('Export'),
           ),
           const SizedBox(height: 10),
           FloatingActionButton(
+            heroTag: 2,
             onPressed: () {
               setState(() {
                 DynamicComponent.kTestDSL = !DynamicComponent.kTestDSL;
@@ -153,71 +155,5 @@ class AdjustableScrollController extends ScrollController {
         jumpTo(scrollEnd);
       }
     });
-  }
-}
-
-class CodeEditorPage extends StatefulWidget {
-  const CodeEditorPage({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return _CodeEditorPageState();
-  }
-}
-
-class _CodeEditorPageState extends State<CodeEditorPage> {
-  GlobalKey key = GlobalKey();
-  TextEditingController controller = TextEditingController();
-
-  _CodeEditorPageState();
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      var exportor = key.currentWidget as DynamicWidgetJsonExportor;
-      controller.text = getPrettyJSONString(exportor.exportJsonString());
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("DSL Export"),
-      ),
-      body: Stack(
-        children: [
-          Opacity(
-            opacity: 0.0,
-            child: DynamicWidgetJsonExportor(
-              key: key,
-              child: MyListItemExport().genExport(),
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(8),
-                  padding: const EdgeInsets.all(8),
-                  constraints: const BoxConstraints.expand(width: double.infinity, height: double.infinity),
-                  child: TextField(
-                    controller: controller,
-                    decoration: const InputDecoration(hintText: 'Enter json string'),
-                    maxLines: 1000000,
-                  ),
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  String getPrettyJSONString(String jsonString) {
-    var encoder = const JsonEncoder.withIndent("  ");
-    return encoder.convert(json.decode(jsonString));
   }
 }

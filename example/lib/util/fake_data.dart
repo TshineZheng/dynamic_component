@@ -51,7 +51,7 @@ const goodsData = '''
     {
         "createdAt": "2022-05-20T02:36:45.956Z",
         "goods_name": "Ashley Greenholt",
-        "goods_image": "https://loremflickr.com/cache/resized/65535_51790965787_6376dd8670_c_640_480_nofilter.jpg",
+        "goods_image": "https://loremflickr.com/cache/resized/5461_14053595762_90177b3c56_c_640_480_nofilter.jpg",
         "goods_detail": "Dolor rem qui deleniti rerum doloremque voluptatem et nobis. Nihil veniam ullam tempore ducimus laborum expedita qui. Minus necessitatibus et deleniti iste aspernatur repudiandae temporibus aut.",
         "isliked": false,
         "goods_id": "7"

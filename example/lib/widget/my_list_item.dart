@@ -1,4 +1,5 @@
 import 'package:dynamic_component/dynamic_component.dart';
+import 'package:example/widget/image_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../util/widget_json.dart';
@@ -47,7 +48,11 @@ class MyListItem extends DynamicComponent {
                           topRight: Radius.circular(10),
                         ),
                       ),
-                      child: Image.network(image, fit: BoxFit.fitHeight).tap('image', onTap),
+                      child: ImageWidget(
+                        url: image,
+                        fit: BoxFit.fitHeight,
+                        cache: false,
+                      ).tap('image', onTap),
                     ),
                     Positioned(
                       left: 0,
