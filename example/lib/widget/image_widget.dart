@@ -52,7 +52,7 @@ class ImageWidget extends StatelessWidget {
   }
 }
 
-class ImageWidgetParse extends WidgetParser {
+class ImageWidgetParser extends WidgetParser {
   @override
   Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
     final realWidget = widget as ImageWidget;

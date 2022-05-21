@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   setUp(() {
-    DynamicWidgetBuilder.addParser(ImageWidgetParse());
+    DynamicWidgetBuilder.addParser(ImageWidgetParser());
   });
 
   group('ImageWidget', () {
