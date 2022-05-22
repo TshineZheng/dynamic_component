@@ -198,7 +198,10 @@ class DSLInfo {
   });
 
   factory DSLInfo.fromDSL(String dsl) {
-    var widgetJson = jsonDecode(dsl);
+    return DSLInfo.fromMap(jsonDecode(dsl));
+  }
+
+  factory DSLInfo.fromMap(Map widgetJson) {
     var type = widgetJson['type'];
     var childString = jsonEncode(widgetJson['child']);
     Map<String, dynamic>? jsonDataRelation;
