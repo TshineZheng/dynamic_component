@@ -9,6 +9,7 @@ import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:example/util/widget_json.dart';
 import 'package:example/widget/flexible_parser.dart';
 import 'package:example/widget/image_widget.dart';
+import 'package:faker_dart/faker_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -58,7 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     Iterable l = json.decode(goodsData);
-    goodsList = List<Goods>.from(l.map((model) => Goods.fromJson(model)));
+    goodsList = List<Goods>.from(l
+        .map((model) => Goods.fromJson(model))
+        .map((e) => e.copyWith(goodsImage: Faker.instance.image.loremPicsum.image(seed: e.goodsName))));
   }
 
   @override

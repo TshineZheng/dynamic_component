@@ -53,7 +53,7 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                         child: ImageWidget(
                           url: goodsImage,
                           fit: BoxFit.fitWidth,
-                          cache: false,
+                          cache: true,
                         ).tap('image', onTap),
                       ),
                     ),
