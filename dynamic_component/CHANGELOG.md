@@ -1,6 +1,7 @@
 ## 0.0.2
-- Add `DSLInfo.fromMap` for DSLInfo
+### Added
+- The `DSLInfo.fromMap` factory，now you can create `DSLInfo` by Map
 
 ## 0.0.1
 
-- Initial version.
+- Initial version, created by Tshine(gtshine@gmail.com)
