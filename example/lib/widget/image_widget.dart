@@ -41,11 +41,11 @@ class ImageWidget extends StatelessWidget {
       loadStateChanged: (state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return const Icon(Icons.circle_outlined, size: 200);
+            return Image.asset("assets/placeholder.png", fit: fit);
           case LoadState.completed:
             return state.completedWidget;
           case LoadState.failed:
-            return const Icon(Icons.image_not_supported, size: 200);
+            return Image.asset("assets/placeholder.png", fit: fit);
         }
       },
     );

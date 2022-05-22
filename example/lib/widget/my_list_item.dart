@@ -41,17 +41,21 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                   children: [
                     Container(
                       clipBehavior: Clip.hardEdge,
+                      alignment: Alignment.center,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
                       ),
-                      child: ImageWidget(
-                        url: goodsImage,
-                        fit: BoxFit.fitHeight,
-                        cache: false,
-                      ).tap('image', onTap),
+                      child: AspectRatio(
+                        aspectRatio: 640 / 480,
+                        child: ImageWidget(
+                          url: goodsImage,
+                          fit: BoxFit.fitWidth,
+                          cache: false,
+                        ).tap('image', onTap),
+                      ),
                     ),
                     Positioned(
                       left: 0,
