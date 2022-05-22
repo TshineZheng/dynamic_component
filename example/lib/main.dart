@@ -19,13 +19,13 @@ import 'page/code_edit_page.dart';
 import 'util/fake_data.dart';
 import 'widget/my_list_item.dart';
 
-void main() {
+void main() async {
   DynamicComponent.init();
 
   DynamicWidgetBuilder.addParser(FlexibleParser());
   DynamicWidgetBuilder.addParser(ImageWidgetParser());
 
-  initDSLCache();
+  await initDSLCache();
 
   runApp(const MyApp());
 }

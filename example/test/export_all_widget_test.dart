@@ -31,7 +31,7 @@ void main() {
             'components': jsons,
           };
 
-          final file = File('components.json');
+          final file = File('assets/components.json');
 
           if (file.existsSync()) file.deleteSync();
 
