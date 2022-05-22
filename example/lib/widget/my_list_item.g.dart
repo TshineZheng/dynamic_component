@@ -11,6 +11,7 @@ const _myListItemDataForExport = {
   "goods_detail": "#goodsDetail#",
   "goods_image": "#goodsImage#",
   "isliked": "#isliked#",
+  "createdAt": "#createdAt#",
 };
 
 mixin _$MyListItemComponent on DynamicComponent {
@@ -18,12 +19,14 @@ mixin _$MyListItemComponent on DynamicComponent {
   late final String goodsDetail;
   late final String goodsImage;
   late final String isliked;
+  late final String createdAt;
 
   void _setVariables() {
     goodsName = data?["goods_name"]?.toString() ?? " ";
     goodsDetail = data?["goods_detail"]?.toString() ?? " ";
     goodsImage = data?["goods_image"]?.toString() ?? " ";
     isliked = data?["isliked"]?.toString() ?? " ";
+    createdAt = data?["createdAt"]?.toString() ?? " ";
   }
 
   @override
@@ -41,5 +44,6 @@ mixin _$MyListItemComponent on DynamicComponent {
         "#goodsDetail#": "goods_detail",
         "#goodsImage#": "goods_image",
         "#isliked#": "isliked",
+        "#createdAt#": "createdAt",
       };
 }

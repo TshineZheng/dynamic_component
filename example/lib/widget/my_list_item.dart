@@ -12,6 +12,7 @@ part 'my_list_item.g.dart';
   'goods_detail',
   'goods_image',
   'isliked',
+  'createdAt',
 ])
 class MyListItem extends DynamicComponent with _$MyListItemComponent {
   MyListItem({
@@ -85,15 +86,21 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          goodsDetail,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 6,
-                        ).tap('content', onTap),
-                      )
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              goodsDetail,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 6,
+                            ).tap('content', onTap),
+                          )
+                        ],
+                      ),
+                      Text(createdAt),
                     ],
                   ),
                 ),
