@@ -19,7 +19,14 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
     required Map<String, dynamic> data,
     Key? key,
     OnTap? onTap,
-  }) : super(key: key, data: data, onTap: onTap);
+  }) : super(
+            key: key,
+            data: data,
+            onTap: onTap,
+            initialWidget: const AspectRatio(
+              aspectRatio: 640 / 480,
+              child: Center(child: Text('Loading……')),
+            ));
 
   /// 作用同 StatelessWidget.build
   @override
