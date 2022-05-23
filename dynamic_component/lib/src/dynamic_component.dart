@@ -217,7 +217,10 @@ class DSLInfo {
     // ignore: avoid_function_literals_in_foreach_calls
     dataRelation?.entries.forEach((element) {
       if (data.containsKey(element.value)) {
-        childString = childString.replaceAll(element.key, data[element.value]!.toString().replaceAll('\n', '\\n'));
+        childString = childString.replaceAll(
+          element.key,
+          data[element.value]!.toString().replaceAll('\n', '\\n'),
+        );
       }
     });
     return childString;
