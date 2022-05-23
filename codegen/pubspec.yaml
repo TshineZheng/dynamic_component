@@ -1,6 +1,6 @@
 name: dynamic_component_codegen
 description: Provider builder and generator for package dynamic_component.
-version: 0.0.1+1
+version: 0.0.2
 homepage: https://github.com/TshineZheng/dynamic_component
 
 environment:
@@ -17,9 +17,9 @@ dependencies:
   recase: ^4.0.0
   dynamic_component: ^0.0.1
 
-dependencies_overrides:
-  dynamic_component:
-    path: ../dynamic_component
+# dependencies_overrides:
+#   dynamic_component:
+#     path: ../dynamic_component
 
 dev_dependencies:
   flutter_test:
