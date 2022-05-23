@@ -44,7 +44,7 @@ class DynamicComponentGenerator extends GeneratorForAnnotation<Component> {
       dataRelation.writeln('"#${varsCamelCase[i]}#" : "${vars[i]}",');
       dataForExport.writeln('"${vars[i]}" : "#${varsCamelCase[i]}#",');
       variablesDim.writeln('late final String ${varsCamelCase[i]};');
-      variablesSet.writeln('${varsCamelCase[i]} = data?["${vars[i]}"]?.toString() ?? " ";');
+      variablesSet.writeln('${varsCamelCase[i]} = data?["${vars[i]}"]?.toString() ?? "";');
     }
 
     return tempCode(
