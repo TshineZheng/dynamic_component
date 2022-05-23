@@ -19,12 +19,15 @@ class DynamicComponentGenerator extends GeneratorForAnnotation<Component> {
   dynamic generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
     // 仅处理类上的注解
     if (element is! ClassElement) {
-      throw InvalidGenerationSourceError('Component is not ok for ${element.displayName}');
+      throw InvalidGenerationSourceError('@Component annotation is not ok for ${element.displayName}.');
+    }
+
+    if (element.supertype?.element.displayName != 'DynamicComponent') {
+      throw InvalidGenerationSourceError(
+          'Classes that use the @Component annotation must be extends DynamicComponent. Affected classes: ${element.displayName}.');
     }
 
     final clazz = element;
-
-    log('processing class ${clazz.name}');
 
     final vars = annotation.read('variables').listValue.map((e) => e.toStringValue()!).toList();
     final varsCamelCase = vars.map((e) => e.camelCase).toList();
