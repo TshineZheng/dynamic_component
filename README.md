@@ -14,4 +14,4 @@ See also: https://pub.dev/packages/dynamic_component
 
 ## Preview
 
-![](doc/assets/page_1.png)
+![](doc/assets/page_1.jpg)
