@@ -18,6 +18,11 @@ class IfOrNot extends StatelessWidget {
   const IfOrNot({Key? key, required this.actual, required this.expect, required this.matched, required this.failed})
       : super(key: key);
 
+  factory IfOrNot.boolString(String boolString, Widget t, Widget? f) {
+    final value = boolString == 'true' ? 'true' : 'false';
+    return IfOrNot(actual: value, expect: 'true', matched: t, failed: f ?? const SizedBox.shrink());
+  }
+
   @override
   Widget build(BuildContext context) {
     if (actual == expect) {
