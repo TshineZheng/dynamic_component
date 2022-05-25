@@ -1,10 +1,9 @@
 import 'dart:convert';
 
+import 'package:dynamic_component/dynamic_component.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'if_or_not.dart';
 
 final _defaultClickListener = NonResponseWidgetClickListener();
 
@@ -20,6 +19,7 @@ abstract class DynamicComponent extends StatelessWidget {
   static init() {
     DynamicWidgetBuilder.addParser(TapDetctorParse());
     DynamicWidgetBuilder.addParser(IfOrNotParse());
+    DynamicWidgetBuilder.addParser(WhenParser());
   }
 
   /// 业务数据
