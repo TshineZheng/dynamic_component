@@ -1,5 +1,7 @@
 Build your Dynamic components that support simple logic and variable
 
+See also: https://pub.dev/packages/dynamic_component
+
 ## Features
 
 - [x] Dynamic variable  
@@ -10,4 +12,6 @@ Build your Dynamic components that support simple logic and variable
   - [x] When
 - [x] codegen
 
-See also: https://pub.dev/packages/dynamic_component
+## Preview
+
+![](doc/assets/page_1.png)
