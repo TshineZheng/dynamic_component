@@ -13,6 +13,7 @@ part 'my_list_item.g.dart';
   'goods_image',
   'isliked',
   'createdAt',
+  'type',
 ])
 class MyListItem extends DynamicComponent with _$MyListItemComponent {
   MyListItem({
@@ -67,6 +68,47 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                     ),
                     Positioned(
                       left: 0,
+                      child: When(
+                        type,
+                        {
+                          '0': Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: const Text('Toy', style: TextStyle(color: Colors.white, fontSize: 16))),
+                          '1': Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: const Text('Foods', style: TextStyle(color: Colors.white, fontSize: 16))),
+                          '2': Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: const Text('Service', style: TextStyle(color: Colors.white, fontSize: 16)))
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
                       bottom: 0,
                       right: 0,
                       child: Container(
@@ -82,11 +124,10 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                     Positioned(
                       right: 5,
                       bottom: -3,
-                      child: IfOrNot(
-                        actual: isliked,
-                        expect: 'false',
-                        matched: const Text('♡', style: TextStyle(color: Colors.red, fontSize: 30)),
-                        failed: const Text('♥', style: TextStyle(color: Colors.red, fontSize: 30)),
+                      child: IfOrNot.boolString(
+                        isliked,
+                        const Text('♡', style: TextStyle(color: Colors.red, fontSize: 30)),
+                        const Text('♥', style: TextStyle(color: Colors.red, fontSize: 30)),
                       ).tap('like', onTap),
                     ),
                   ],

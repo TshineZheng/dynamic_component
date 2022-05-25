@@ -9,6 +9,7 @@ class Goods {
     required this.goodsImage,
     required this.isliked,
     required this.createdAt,
+    required this.type,
   });
 
   final String goodsId;
@@ -17,6 +18,7 @@ class Goods {
   final String goodsImage;
   final bool isliked;
   final String createdAt;
+  final int type;
 
   factory Goods.fromJson(Map<String, dynamic> json) => Goods(
       goodsId: json['goods_id'].toString(),
@@ -24,7 +26,8 @@ class Goods {
       goodsDetail: json['goods_detail'].toString(),
       goodsImage: json['goods_image'].toString(),
       isliked: json['isliked'] as bool,
-      createdAt: json['createdAt'].toString());
+      createdAt: json['createdAt'].toString(),
+      type: json['type'] as int);
 
   Map<String, dynamic> toJson() => {
         'goods_id': goodsId,
@@ -32,7 +35,8 @@ class Goods {
         'goods_detail': goodsDetail,
         'goods_image': goodsImage,
         'isliked': isliked,
-        'createdAt': createdAt
+        'createdAt': createdAt,
+        'type': type
       };
 
   Goods clone() => Goods(
@@ -41,7 +45,8 @@ class Goods {
       goodsDetail: goodsDetail,
       goodsImage: goodsImage,
       isliked: isliked,
-      createdAt: createdAt);
+      createdAt: createdAt,
+      type: type);
 
   Goods copyWith(
           {String? goodsId,
@@ -49,7 +54,8 @@ class Goods {
           String? goodsDetail,
           String? goodsImage,
           bool? isliked,
-          String? createdAt}) =>
+          String? createdAt,
+          int? type}) =>
       Goods(
         goodsId: goodsId ?? this.goodsId,
         goodsName: goodsName ?? this.goodsName,
@@ -57,6 +63,7 @@ class Goods {
         goodsImage: goodsImage ?? this.goodsImage,
         isliked: isliked ?? this.isliked,
         createdAt: createdAt ?? this.createdAt,
+        type: type ?? this.type,
       );
 
   @override
@@ -68,7 +75,8 @@ class Goods {
           goodsDetail == other.goodsDetail &&
           goodsImage == other.goodsImage &&
           isliked == other.isliked &&
-          createdAt == other.createdAt;
+          createdAt == other.createdAt &&
+          type == other.type;
 
   @override
   int get hashCode =>
@@ -77,5 +85,6 @@ class Goods {
       goodsDetail.hashCode ^
       goodsImage.hashCode ^
       isliked.hashCode ^
-      createdAt.hashCode;
+      createdAt.hashCode ^
+      type.hashCode;
 }

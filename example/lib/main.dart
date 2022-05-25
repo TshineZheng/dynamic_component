@@ -58,10 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    final rng = Random();
     Iterable l = json.decode(goodsData);
-    goodsList = List<Goods>.from(l
-        .map((model) => Goods.fromJson(model))
-        .map((e) => e.copyWith(goodsImage: Faker.instance.image.loremPicsum.image(seed: e.goodsName))));
+    goodsList = List<Goods>.from(l.map((model) => Goods.fromJson(model)).map((e) => e.copyWith(
+          goodsImage: Faker.instance.image.loremPicsum.image(seed: e.goodsName),
+          type: rng.nextInt(4),
+        )));
   }
 
   @override
