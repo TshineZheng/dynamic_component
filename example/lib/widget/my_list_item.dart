@@ -1,5 +1,5 @@
 import 'package:dynamic_component/dynamic_component.dart';
-import 'package:dynamic_component/dynamic_component_anotation.dart';
+import 'package:dynamic_component/foundation.dart';
 import 'package:example/widget/image_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -124,8 +124,8 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                     Positioned(
                       right: 5,
                       bottom: -3,
-                      child: IfOrNot.boolString(
-                        isliked,
+                      child: IfOrNot.boolean(
+                        (isliked == 'true' ? true : false).toValue('isliked'),
                         const Text('♡', style: TextStyle(color: Colors.red, fontSize: 30)),
                         const Text('♥', style: TextStyle(color: Colors.red, fontSize: 30)),
                       ).tap('like', onTap),

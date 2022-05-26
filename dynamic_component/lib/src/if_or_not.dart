@@ -1,13 +1,14 @@
+import 'package:dynamic_component/src/foundation.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:flutter/widgets.dart';
 
 /// 带逻辑判断的组件
-class IfOrNot extends StatelessWidget {
+class IfOrNot<T> extends StatelessWidget {
   /// 实际值
-  final String actual;
+  final DSLValue<T> actual;
 
   /// 预期值
-  final String expect;
+  final T expect;
 
   /// [actual] == [expect] 时展示
   final Widget matched;
@@ -18,17 +19,21 @@ class IfOrNot extends StatelessWidget {
   const IfOrNot({Key? key, required this.actual, required this.expect, required this.matched, required this.failed})
       : super(key: key);
 
-  factory IfOrNot.boolString(String boolString, Widget t, Widget? f) {
-    final value = boolString == 'true' ? 'true' : 'false';
-    return IfOrNot(actual: value, expect: 'true', matched: t, failed: f ?? const SizedBox.shrink());
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (actual == expect) {
+    if (actual.value == expect) {
       return matched;
     }
     return failed;
+  }
+
+  static IfOrNot<bool> boolean(DSLValue<bool> value, Widget? tureWidget, Widget? falseWidget) {
+    return IfOrNot<bool>(
+      actual: value,
+      expect: true,
+      matched: tureWidget ?? const SizedBox.shrink(),
+      failed: falseWidget ?? const SizedBox.shrink(),
+    );
   }
 }
 
@@ -38,7 +43,7 @@ class IfOrNotParse extends WidgetParser {
     var realWidget = widget as IfOrNot;
     return {
       "type": widgetName,
-      "actual": realWidget.actual,
+      "actual": realWidget.actual.toDSLString(),
       "expect": realWidget.expect,
       "matched": DynamicWidgetBuilder.export(realWidget.matched, buildContext),
       "failed": DynamicWidgetBuilder.export(realWidget.failed, buildContext),
@@ -48,7 +53,7 @@ class IfOrNotParse extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext buildContext, ClickListener? listener) {
     return IfOrNot(
-      actual: map['actual'],
+      actual: DSLValue.fromDSLString(map['actual']),
       expect: map['expect'],
       matched: DynamicWidgetBuilder.buildFromMap(map['matched'], buildContext, listener)!,
       failed: DynamicWidgetBuilder.buildFromMap(map['failed'], buildContext, listener)!,
@@ -60,4 +65,9 @@ class IfOrNotParse extends WidgetParser {
 
   @override
   Type get widgetType => IfOrNot;
+
+  @override
+  bool matchWidgetForExport(Widget? widget) {
+    return widget is IfOrNot;
+  }
 }
