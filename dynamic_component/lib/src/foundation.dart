@@ -10,60 +10,60 @@ class Component {
 
 class DSLValue<T> {
   final T value;
-  final String name;
+  final String dataName;
 
-  DSLValue({required this.value, required this.name})
+  DSLValue({required this.value, required this.dataName})
       : assert(T == int || T == double || T == bool || T == String,
             "DSValue Generics Type must be int or double or bool or String, but find $T");
 
-  String toDSLString() {
+  String toDSLKeyword() {
     if (T == String) {
-      return name.toString();
+      return dataName.toString();
     } else {
-      return '@${value.runtimeType}:$name'; // "@int:name"
+      return '@${value.runtimeType}:$dataName'; // "@int:name"
     }
   }
 
   String inject({required T data, required String dsl}) {
-    return dsl.replaceAll(toDSLString(), data.toString());
+    return dsl.replaceAll(toDSLKeyword(), data.toString());
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DSLValue<T> && runtimeType == other.runtimeType && value == other.value && name == other.name;
+      other is DSLValue<T> && runtimeType == other.runtimeType && value == other.value && dataName == other.dataName;
 
   @override
-  int get hashCode => value.hashCode ^ name.hashCode;
+  int get hashCode => value.hashCode ^ dataName.hashCode;
 
-  static DSLValue fromDSLString(String str) {
+  static DSLValue fromDSLKeyword(String str) {
     if (str.startsWith('@int:')) {
       final name = str.replaceAll('@int:', '').trim();
-      return DSLValue<int>(value: 0, name: name);
+      return DSLValue<int>(value: 0, dataName: name);
     } else if (str.startsWith('@double:')) {
       final name = str.replaceAll('@double:', '').trim();
-      return DSLValue<double>(value: 0, name: name);
+      return DSLValue<double>(value: 0, dataName: name);
     } else if (str.startsWith('@bool:')) {
       final name = str.replaceAll('@bool:', '').trim();
-      return DSLValue<bool>(value: false, name: name);
+      return DSLValue<bool>(value: false, dataName: name);
     } else {
-      return DSLValue<String>(value: str, name: str);
+      return DSLValue<String>(value: str, dataName: str);
     }
   }
 }
 
 extension IntValueExt on int {
-  DSLValue<int> toDSLValue(String name) => DSLValue<int>(value: this, name: name);
+  DSLValue<int> toDSLValue(String name) => DSLValue<int>(value: this, dataName: name);
 }
 
 extension DoubleValueExt on double {
-  DSLValue<double> toDSLValue(String name) => DSLValue<double>(value: this, name: name);
+  DSLValue<double> toDSLValue(String name) => DSLValue<double>(value: this, dataName: name);
 }
 
 extension BoolValueExt on bool {
-  DSLValue<bool> toDSLValue(String name) => DSLValue<bool>(value: this, name: name);
+  DSLValue<bool> toDSLValue(String name) => DSLValue<bool>(value: this, dataName: name);
 }
 
 extension StringValueExt on String {
-  DSLValue<String> toDSLValue() => DSLValue<String>(value: this, name: this);
+  DSLValue<String> toDSLValue({String? name}) => DSLValue<String>(value: this, dataName: name ?? this);
 }

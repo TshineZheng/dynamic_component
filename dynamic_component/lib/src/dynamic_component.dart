@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dynamic_component/dynamic_component.dart';
+import 'package:dynamic_component/foundation.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -216,12 +217,21 @@ class DSLInfo {
     var childString = childDSL;
     // ignore: avoid_function_literals_in_foreach_calls
     dataRelation?.entries.forEach((element) {
-      //TODO: 此处要加入 DSLValue.inject 处理
-      if (data.containsKey(element.value)) {
-        childString = childString.replaceAll(
-          element.key,
-          data[element.value]!.toString().replaceAll('\n', '\\n'),
-        );
+      if (element.key.startsWith('@')) {
+        final dslValue = DSLValue.fromDSLKeyword(element.key);
+        if (data.containsKey(dslValue.dataName)) {
+          childString = dslValue.inject(
+            data: data[dslValue.dataName]!.toString().replaceAll('\n', '\\n'),
+            dsl: childString,
+          );
+        }
+      } else {
+        if (data.containsKey(element.value)) {
+          childString = childString.replaceAll(
+            element.key,
+            data[element.value]!.toString().replaceAll('\n', '\\n'),
+          );
+        }
       }
     });
     return childString;

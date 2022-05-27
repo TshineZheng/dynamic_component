@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart' hide log;
-import 'package:dynamic_component/dynamic_component_anotation.dart';
+import 'package:dynamic_component/foundation.dart';
 import 'package:recase/recase.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -30,7 +30,7 @@ class DynamicComponentGenerator extends GeneratorForAnnotation<Component> {
     final clazz = element;
 
     final vars = annotation.read('variables').listValue.map((e) => e.toStringValue()!).toList();
-    final varsCamelCase = vars.map((e) => e.camelCase).toList();
+    final varsDSlValue = vars.map((e) => DSLValue.fromDSLKeyword(e)).toList();
 
     final widgetName = clazz.name;
     final widgetNameCamelCase = widgetName.camelCase;
@@ -41,10 +41,10 @@ class DynamicComponentGenerator extends GeneratorForAnnotation<Component> {
     final variablesSet = StringBuffer();
 
     for (var i = 0; i < vars.length; i++) {
-      dataRelation.writeln('"#${varsCamelCase[i]}#" : "${vars[i]}",');
-      dataForExport.writeln('"${vars[i]}" : "#${varsCamelCase[i]}#",');
-      variablesDim.writeln('late final String ${varsCamelCase[i]};');
-      variablesSet.writeln('${varsCamelCase[i]} = data?["${vars[i]}"]?.toString() ?? "";');
+      dataRelation.writeln('"${genDataRelationKey(varsDSlValue[i])}" : "${varsDSlValue[i].dataName}",');
+      dataForExport.writeln('"${varsDSlValue[i].dataName}" : ${genDataForExportValue(varsDSlValue[i])},');
+      variablesDim.writeln('late final ${genDimType(varsDSlValue[i])} ${varsDSlValue[i].dataName.camelCase};');
+      variablesSet.writeln('${varsDSlValue[i].dataName.camelCase} = ${genSetValue(varsDSlValue[i])}');
     }
 
     return tempCode(
@@ -55,5 +55,43 @@ class DynamicComponentGenerator extends GeneratorForAnnotation<Component> {
       widgetName: widgetName,
       widgetNameCamelCase: widgetNameCamelCase,
     );
+  }
+
+  String genDataRelationKey(DSLValue value) {
+    if (value.value is String) {
+      return '#${value.dataName}#';
+    }
+    return value.toDSLKeyword();
+  }
+
+  String genDataForExportValue(DSLValue value) {
+    if (value.value is bool) {
+      return 'false';
+    } else if (value.value is int) {
+      return '0';
+    } else if (value.value is double) {
+      return '0.0';
+    } else {
+      return '"#${value.dataName}#"';
+    }
+  }
+
+  String genDimType(DSLValue value) {
+    if (value.value is String) {
+      return 'String';
+    }
+    return 'DSLValue<${value.value.runtimeType.toString()}>';
+  }
+
+  String genSetValue(DSLValue value) {
+    if (value.value is bool) {
+      return 'DSLValue(value: data?["${value.dataName}"] ?? false, dataName: "${value.dataName}");';
+    } else if (value.value is int) {
+      return 'DSLValue(value: data?["${value.dataName}"] ?? 0, dataName: "${value.dataName}");';
+    } else if (value.value is double) {
+      return 'DSLValue(value: data?["${value.dataName}"] ?? 0.0, dataName: "${value.dataName}");';
+    } else {
+      return 'data?["${value.dataName}"]?.toString() ?? "";';
+    }
   }
 }

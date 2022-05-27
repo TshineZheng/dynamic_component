@@ -43,7 +43,7 @@ class IfOrNotParse extends WidgetParser {
     var realWidget = widget as IfOrNot;
     return {
       "type": widgetName,
-      "actual": realWidget.actual.toDSLString(),
+      "actual": realWidget.actual.toDSLKeyword(),
       "expect": realWidget.expect,
       "matched": DynamicWidgetBuilder.export(realWidget.matched, buildContext),
       "failed": DynamicWidgetBuilder.export(realWidget.failed, buildContext),
@@ -53,7 +53,7 @@ class IfOrNotParse extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext buildContext, ClickListener? listener) {
     return IfOrNot(
-      actual: DSLValue.fromDSLString(map['actual']),
+      actual: DSLValue.fromDSLKeyword(map['actual']),
       expect: map['expect'],
       matched: DynamicWidgetBuilder.buildFromMap(map['matched'], buildContext, listener)!,
       failed: DynamicWidgetBuilder.buildFromMap(map['failed'], buildContext, listener)!,

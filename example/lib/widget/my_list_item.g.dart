@@ -7,29 +7,37 @@ part of 'my_list_item.dart';
 // **************************************************************************
 
 const _myListItemDataForExport = {
-  "goods_name": "#goodsName#",
-  "goods_detail": "#goodsDetail#",
-  "goods_image": "#goodsImage#",
-  "isliked": "#isliked#",
+  "goods_name": "#goods_name#",
+  "goods_detail": "#goods_detail#",
+  "goods_image": "#goods_image#",
+  "isliked": false,
   "createdAt": "#createdAt#",
-  "type": "#type#",
+  "type": 0,
+  "delivery_status": 0,
+  "delivery_process": 0.0,
 };
 
 mixin _$MyListItemComponent on DynamicComponent {
   late final String goodsName;
   late final String goodsDetail;
   late final String goodsImage;
-  late final String isliked;
+  late final DSLValue<bool> isliked;
   late final String createdAt;
-  late final String type;
+  late final DSLValue<int> type;
+  late final DSLValue<int> deliveryStatus;
+  late final DSLValue<double> deliveryProcess;
 
   void _setVariables() {
     goodsName = data?["goods_name"]?.toString() ?? "";
     goodsDetail = data?["goods_detail"]?.toString() ?? "";
     goodsImage = data?["goods_image"]?.toString() ?? "";
-    isliked = data?["isliked"]?.toString() ?? "";
+    isliked = DSLValue(value: data?["isliked"] ?? false, dataName: "isliked");
     createdAt = data?["createdAt"]?.toString() ?? "";
-    type = data?["type"]?.toString() ?? "";
+    type = DSLValue(value: data?["type"] ?? 0, dataName: "type");
+    deliveryStatus = DSLValue(
+        value: data?["delivery_status"] ?? 0, dataName: "delivery_status");
+    deliveryProcess = DSLValue(
+        value: data?["delivery_process"] ?? 0.0, dataName: "delivery_process");
   }
 
   @override
@@ -43,11 +51,13 @@ mixin _$MyListItemComponent on DynamicComponent {
 
   @override
   Map<String, dynamic>? get dataRelation => {
-        "#goodsName#": "goods_name",
-        "#goodsDetail#": "goods_detail",
-        "#goodsImage#": "goods_image",
-        "#isliked#": "isliked",
+        "#goods_name#": "goods_name",
+        "#goods_detail#": "goods_detail",
+        "#goods_image#": "goods_image",
+        "@bool:isliked": "isliked",
         "#createdAt#": "createdAt",
-        "#type#": "type",
+        "@int:type": "type",
+        "@int:delivery_status": "delivery_status",
+        "@double:delivery_process": "delivery_process",
       };
 }

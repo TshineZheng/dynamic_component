@@ -11,9 +11,11 @@ part 'my_list_item.g.dart';
   'goods_name',
   'goods_detail',
   'goods_image',
-  'isliked',
+  '@bool:isliked',
   'createdAt',
-  'type',
+  '@int:type',
+  '@int:delivery_status',
+  '@double:delivery_process',
 ])
 class MyListItem extends DynamicComponent with _$MyListItemComponent {
   MyListItem({
@@ -69,7 +71,7 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                     Positioned(
                       left: 0,
                       child: When(
-                        type,
+                        type.value.toString(),
                         {
                           '0': Container(
                               padding: const EdgeInsets.all(4),
@@ -125,7 +127,7 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                       right: 5,
                       bottom: -3,
                       child: IfOrNot.boolean(
-                        (isliked == 'true' ? true : false).toDSLValue('isliked'),
+                        isliked,
                         const Text('♡', style: TextStyle(color: Colors.red, fontSize: 30)),
                         const Text('♥', style: TextStyle(color: Colors.red, fontSize: 30)),
                       ).tap('like', onTap),
