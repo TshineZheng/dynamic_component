@@ -53,17 +53,17 @@ class DSLValue<T> {
 }
 
 extension IntValueExt on int {
-  DSLValue<int> toValue(String name) => DSLValue<int>(value: this, name: name);
+  DSLValue<int> toDSLValue(String name) => DSLValue<int>(value: this, name: name);
 }
 
 extension DoubleValueExt on double {
-  DSLValue<double> toValue(String name) => DSLValue<double>(value: this, name: name);
+  DSLValue<double> toDSLValue(String name) => DSLValue<double>(value: this, name: name);
 }
 
 extension BoolValueExt on bool {
-  DSLValue<bool> toValue(String name) => DSLValue<bool>(value: this, name: name);
+  DSLValue<bool> toDSLValue(String name) => DSLValue<bool>(value: this, name: name);
 }
 
 extension StringValueExt on String {
-  DSLValue<String> toValue() => DSLValue<String>(value: this, name: this);
+  DSLValue<String> toDSLValue() => DSLValue<String>(value: this, name: this);
 }

@@ -10,7 +10,7 @@ void main() {
   });
   group('IfOrNot String', () {
     final widget = IfOrNot<String>(
-      actual: '#actual#'.toValue(),
+      actual: '#actual#'.toDSLValue(),
       expect: 'expect',
       matched: const Text('matched', overflow: TextOverflow.ellipsis),
       failed: const Text('failed', overflow: TextOverflow.ellipsis),
@@ -70,7 +70,7 @@ void main() {
 
   group('IfOrNot bool', () {
     final widget = IfOrNot<bool>(
-      actual: true.toValue("isLike"),
+      actual: true.toDSLValue("isLike"),
       expect: true,
       matched: const Text('matched', overflow: TextOverflow.ellipsis),
       failed: const Text('failed', overflow: TextOverflow.ellipsis),

@@ -23,7 +23,7 @@ void main() {
 
   group('DSLValue String', () {
     const dslValueStr = 'stringVar';
-    final dslValue = 'stringVar'.toValue();
+    final dslValue = 'stringVar'.toDSLValue();
 
     test('toDSLString', () {
       expect(dslValue.toDSLString(), equals(dslValueStr));
