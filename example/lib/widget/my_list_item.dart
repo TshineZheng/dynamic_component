@@ -71,9 +71,9 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                     Positioned(
                       left: 0,
                       child: When(
-                        type.value.toString(),
+                        type,
                         {
-                          '0': Container(
+                          0: Container(
                               padding: const EdgeInsets.all(4),
                               decoration: const BoxDecoration(
                                 color: Colors.blue,
@@ -84,7 +84,7 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                                 ),
                               ),
                               child: const Text('Toy', style: TextStyle(color: Colors.white, fontSize: 16))),
-                          '1': Container(
+                          1: Container(
                               padding: const EdgeInsets.all(4),
                               decoration: const BoxDecoration(
                                 color: Colors.red,
@@ -95,7 +95,7 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                                 ),
                               ),
                               child: const Text('Foods', style: TextStyle(color: Colors.white, fontSize: 16))),
-                          '2': Container(
+                          2: Container(
                               padding: const EdgeInsets.all(4),
                               decoration: const BoxDecoration(
                                 color: Colors.green,
@@ -128,8 +128,8 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                       bottom: -3,
                       child: IfOrNot.boolean(
                         isliked,
-                        const Text('♡', style: TextStyle(color: Colors.red, fontSize: 30)),
                         const Text('♥', style: TextStyle(color: Colors.red, fontSize: 30)),
+                        const Text('♡', style: TextStyle(color: Colors.red, fontSize: 30)),
                       ).tap('like', onTap),
                     ),
                   ],
