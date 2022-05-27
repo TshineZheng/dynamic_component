@@ -217,11 +217,11 @@ class DSLInfo {
     var childString = childDSL;
     // ignore: avoid_function_literals_in_foreach_calls
     dataRelation?.entries.forEach((element) {
-      if (element.key.startsWith('@')) {
+      if (element.key.startsWith('@int:') || element.key.startsWith('@bool:') || element.key.startsWith('@double:')) {
         final dslValue = DSLValue.fromDSLKeyword(element.key);
         if (data.containsKey(dslValue.dataName)) {
           childString = dslValue.inject(
-            data: data[dslValue.dataName]!.toString().replaceAll('\n', '\\n'),
+            data: data[dslValue.dataName],
             dsl: childString,
           );
         }

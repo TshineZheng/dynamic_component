@@ -16,7 +16,7 @@ void main() {
     }));
 
     test('inject', () {
-      final t = dslValue.inject(data: true, dsl: dslValueStr);
+      final t = dslValue.inject(data: true, dsl: '"$dslValueStr"');
       expect(t, equals('true'));
     });
   });
@@ -54,7 +54,7 @@ void main() {
     }));
 
     test('inject', () {
-      final t = dslValue.inject(data: 1, dsl: dslValueStr);
+      final t = dslValue.inject(data: 1, dsl: '"$dslValueStr"');
       expect(t, equals('1'));
     });
   });
@@ -73,7 +73,7 @@ void main() {
     }));
 
     test('inject', () {
-      final t = dslValue.inject(data: 1.0, dsl: dslValueStr);
+      final t = dslValue.inject(data: 1.0, dsl: '"$dslValueStr"');
       expect(t, equals('1.0'));
     });
   });

@@ -25,7 +25,18 @@ class DSLValue<T> {
   }
 
   String inject({required T data, required String dsl}) {
-    return dsl.replaceAll(toDSLKeyword(), data.toString());
+    if (data == null) {
+      return dsl;
+    }
+
+    final dslKeyWord = toDSLKeyword();
+
+    if (T == String) {
+      return dsl.replaceAll(dslKeyWord, data.toString());
+    } else {
+      // 如果不是字符串,会默认将两边的双引号也给替换掉
+      return dsl.replaceAll('"$dslKeyWord"', data.toString());
+    }
   }
 
   @override
@@ -48,6 +59,19 @@ class DSLValue<T> {
       return DSLValue<bool>(value: false, dataName: name);
     } else {
       return DSLValue<String>(value: str, dataName: str);
+    }
+  }
+
+  static DSLValue fromValue(dynamic value, {String? name}) {
+    if (value is bool || value is bool?) {
+      return DSLValue<bool>(value: value ?? false, dataName: name ?? DateTime.now().microsecondsSinceEpoch.toString());
+    } else if (value is int || value is int?) {
+      return DSLValue<int>(value: value ?? 0, dataName: name ?? DateTime.now().microsecondsSinceEpoch.toString());
+    } else if (value is double || value is double?) {
+      return DSLValue<double>(value: value ?? 0.0, dataName: name ?? DateTime.now().microsecondsSinceEpoch.toString());
+    } else {
+      return DSLValue<String>(
+          value: value?.toString() ?? '', dataName: name ?? DateTime.now().microsecondsSinceEpoch.toString());
     }
   }
 }

@@ -10,13 +10,13 @@ void main() {
   });
   group('IfOrNot String', () {
     final widget = IfOrNot<String>(
-      actual: '#actual#'.toDSLValue(),
+      actual: 'actual'.toDSLValue(name: '#actual#'),
       expect: 'expect',
       matched: const Text('matched', overflow: TextOverflow.ellipsis),
       failed: const Text('failed', overflow: TextOverflow.ellipsis),
     );
 
-    const widgetMap = {
+    const widgetMap4DM = {
       'type': 'IfOrNot',
       'actual': '#actual#',
       'expect': 'expect',
@@ -48,18 +48,19 @@ void main() {
 
     test('Export', () {
       final map = DynamicWidgetBuilder.export(widget, null);
-      expect(map, equals(widgetMap));
+      expect(map, equals(widgetMap4DM));
     });
 
     testWidgets('Parser', (WidgetTester tester) async {
       await tester.pumpWidget(
         Builder(
           builder: (BuildContext context) {
-            final widget = DynamicWidgetBuilder.buildFromMap(widgetMap, context, null);
+            final widget = DynamicWidgetBuilder.buildFromMap(widgetMap4DM, context, null);
             expect(widget.runtimeType, equals(IfOrNot));
 
-            final map = DynamicWidgetBuilder.export(widget, null);
-            expect(map, equals(widgetMap));
+            final realWidget = widget as IfOrNot;
+            expect(realWidget.actual.value, equals('#actual#'));
+            expect(realWidget.expect, equals('expect'));
 
             return const Placeholder();
           },
@@ -76,7 +77,7 @@ void main() {
       failed: const Text('failed', overflow: TextOverflow.ellipsis),
     );
 
-    const widgetMap = {
+    const widgetMap4DM = {
       'type': 'IfOrNot',
       'actual': '@bool:isLike',
       'expect': true,
@@ -106,20 +107,51 @@ void main() {
       },
     };
 
+    const widgetMapSelf = {
+      'type': 'IfOrNot',
+      'actual': true,
+      'expect': true,
+      'matched': {
+        "type": "Text",
+        "data": "matched",
+        "textAlign": "start",
+        "overflow": 'ellipsis',
+        "maxLines": null,
+        "semanticsLabel": null,
+        "softWrap": null,
+        "textDirection": "ltr",
+        "style": null,
+        "textScaleFactor": null,
+      },
+      'failed': {
+        "type": "Text",
+        "data": "failed",
+        "textAlign": "start",
+        "overflow": 'ellipsis',
+        "maxLines": null,
+        "semanticsLabel": null,
+        "softWrap": null,
+        "textDirection": "ltr",
+        "style": null,
+        "textScaleFactor": null,
+      },
+    };
+
     test('Export', () {
       final map = DynamicWidgetBuilder.export(widget, null);
-      expect(map, equals(widgetMap));
+      expect(map, equals(widgetMap4DM));
     });
 
     testWidgets('Parser', (WidgetTester tester) async {
       await tester.pumpWidget(
         Builder(
           builder: (BuildContext context) {
-            final widget = DynamicWidgetBuilder.buildFromMap(widgetMap, context, null);
+            final widget = DynamicWidgetBuilder.buildFromMap(widgetMapSelf, context, null);
             expect(widget.runtimeType, equals(IfOrNot));
 
-            final map = DynamicWidgetBuilder.export(widget, null);
-            expect(map, equals(widgetMap));
+            final realWidget = widget as IfOrNot;
+            expect(realWidget.actual.value, equals(true));
+            expect(realWidget.expect, equals(true));
 
             return const Placeholder();
           },

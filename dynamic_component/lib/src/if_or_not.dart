@@ -53,7 +53,7 @@ class IfOrNotParse extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext buildContext, ClickListener? listener) {
     return IfOrNot(
-      actual: DSLValue.fromDSLKeyword(map['actual']),
+      actual: DSLValue.fromValue(map['actual']),
       expect: map['expect'],
       matched: DynamicWidgetBuilder.buildFromMap(map['matched'], buildContext, listener)!,
       failed: DynamicWidgetBuilder.buildFromMap(map['failed'], buildContext, listener)!,
