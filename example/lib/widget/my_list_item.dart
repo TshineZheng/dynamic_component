@@ -1,5 +1,5 @@
 import 'package:dynamic_component/dynamic_component.dart';
-import 'package:dynamic_component/dynamic_component_anotation.dart';
+import 'package:dynamic_component/foundation.dart';
 import 'package:example/widget/image_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -71,39 +71,9 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                       child: When(
                         type,
                         {
-                          '0': Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: const Text('Toy', style: TextStyle(color: Colors.white, fontSize: 16))),
-                          '1': Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: const Text('Foods', style: TextStyle(color: Colors.white, fontSize: 16))),
-                          '2': Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: const Text('Service', style: TextStyle(color: Colors.white, fontSize: 16)))
+                          '0': _buildType(color: Colors.blue, name: 'Toy'),
+                          '1': _buildType(color: Colors.red, name: 'Foods'),
+                          '2': _buildType(color: Colors.green, name: 'Service')
                         },
                       ),
                     ),
@@ -157,6 +127,21 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
           ),
         ],
       ),
+    );
+  }
+
+  Container _buildType({required Color color, required String name}) {
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
+      ),
+      child: Text(name, style: const TextStyle(color: Colors.white, fontSize: 16)),
     );
   }
 

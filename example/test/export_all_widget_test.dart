@@ -11,7 +11,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   setUp(() {
-    DynamicComponent.init();
     DynamicWidgetBuilder.addParser(ImageWidgetParser());
     DynamicWidgetBuilder.addParser(FlexibleParser());
     DynamicWidgetBuilder.addParser(ImageWidgetParser());

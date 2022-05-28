@@ -168,14 +168,14 @@ packages:
       path: "../dynamic_component"
       relative: true
     source: path
-    version: "0.0.2"
+    version: "0.1.1"
   dynamic_component_codegen:
     dependency: "direct dev"
     description:
       path: "../codegen"
       relative: true
     source: path
-    version: "0.0.1+1"
+    version: "0.1.1"
   dynamic_widget:
     dependency: "direct main"
     description:

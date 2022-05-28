@@ -10,6 +10,7 @@ import 'package:example/util/widget_json.dart';
 import 'package:example/widget/flexible_parser.dart';
 import 'package:example/widget/image_widget.dart';
 import 'package:faker_dart/faker_dart.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -20,8 +21,6 @@ import 'util/fake_data.dart';
 import 'widget/my_list_item.dart';
 
 void main() async {
-  DynamicComponent.init();
-
   DynamicWidgetBuilder.addParser(FlexibleParser());
   DynamicWidgetBuilder.addParser(ImageWidgetParser());
 
@@ -76,7 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
           controller: AdjustableScrollController(80),
           child: MasonryGridView.count(
             // 展示几列
-            crossAxisCount: Platform.isAndroid || Platform.isIOS ? 2 : 3,
+            crossAxisCount: kIsWeb
+                ? 3
+                : Platform.isAndroid || Platform.isIOS
+                    ? 2
+                    : 3,
             // 元素总个数
             itemCount: goodsList.length,
             // 纵向元素间距
