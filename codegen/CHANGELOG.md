@@ -1,6 +1,6 @@
 # 0.1.1
 ### Changed
-- Update 'dynamic_component' version
+- Update `dynamic_component` version
 
 ## 0.0.2
 ### Add
@@ -13,4 +13,4 @@
 
 ## 0.0.1
 
-- Initial version.
+- Initial version
