@@ -126,8 +126,8 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                       bottom: -3,
                       child: IfOrNot.boolString(
                         isliked,
-                        const Text('♡', style: TextStyle(color: Colors.red, fontSize: 30)),
                         const Text('♥', style: TextStyle(color: Colors.red, fontSize: 30)),
+                        const Text('♡', style: TextStyle(color: Colors.red, fontSize: 30)),
                       ).tap('like', onTap),
                     ),
                   ],
