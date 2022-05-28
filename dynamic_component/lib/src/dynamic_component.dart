@@ -15,11 +15,16 @@ abstract class DynamicComponent extends StatelessWidget {
   /// 如果要在开发模式，强行使用 dsl，则设置为 true
   static var kTestDSL = false;
 
+  static bool _defaultParserInited = false;
+
   /// 初始化，主要就是把本库必要的 [WidgetParser] 加入 [DynamicWidgetBuilder]
-  static init() {
-    DynamicWidgetBuilder.addParser(TapDetctorParse());
-    DynamicWidgetBuilder.addParser(IfOrNotParse());
-    DynamicWidgetBuilder.addParser(WhenParser());
+  static void _initDefaultParsersIfNess() {
+    if (!_defaultParserInited) {
+      DynamicWidgetBuilder.addParser(TapDetctorParse());
+      DynamicWidgetBuilder.addParser(IfOrNotParse());
+      DynamicWidgetBuilder.addParser(WhenParser());
+      _defaultParserInited = true;
+    }
   }
 
   /// 业务数据
@@ -51,6 +56,8 @@ abstract class DynamicComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _initDefaultParsersIfNess();
+
     if (dslInfo == null || (kDebugMode && !kTestDSL)) {
       return localBuild(context);
     }
