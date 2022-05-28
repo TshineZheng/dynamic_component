@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart' hide log;
-import 'package:dynamic_component/dynamic_component_anotation.dart';
+import 'package:dynamic_component/foundation.dart';
 import 'package:recase/recase.dart';
 import 'package:source_gen/source_gen.dart';
 

@@ -1,3 +1,7 @@
+# 0.1.1
+### Changed
+- Update 'dynamic_component' version
+
 ## 0.0.2
 ### Add
 - Classes that use the `@Component` annotation must be extends `DynamicComponent`
