@@ -68,18 +68,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text(widget.title)),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
-          controller: AdjustableScrollController(80),
+          controller: kIsWeb
+              ? null
+              : Platform.isWindows
+                  ? AdjustableScrollController(80)
+                  : null,
           child: MasonryGridView.count(
             // 展示几列
-            crossAxisCount: kIsWeb
-                ? 3
-                : Platform.isAndroid || Platform.isIOS
-                    ? 2
-                    : 3,
+            crossAxisCount: max(MediaQuery.of(context).size.width ~/ 240, 1),
             // 元素总个数
             itemCount: goodsList.length,
             // 纵向元素间距
