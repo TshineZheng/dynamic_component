@@ -21,7 +21,7 @@ abstract class DynamicComponent extends StatelessWidget {
   static void _initDefaultParsersIfNess() {
     if (!_defaultParserInited) {
       DynamicWidgetBuilder.addParser(TapDetctorParse());
-      DynamicWidgetBuilder.addParser(IfOrNotParse());
+      DynamicWidgetBuilder.addParser(IfParse());
       DynamicWidgetBuilder.addParser(WhenParser());
       _defaultParserInited = true;
     }

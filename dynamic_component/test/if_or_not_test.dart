@@ -5,10 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   setUp(() {
-    DynamicWidgetBuilder.addParser(IfOrNotParse());
+    DynamicWidgetBuilder.addParser(IfParse());
   });
   group('IfOrNot', () {
-    const widget = IfOrNot(
+    const widget = If(
       actual: 'actual',
       expect: 'expect',
       matched: Text('matched', overflow: TextOverflow.ellipsis),
@@ -16,7 +16,7 @@ void main() {
     );
 
     const widgetMap = {
-      'type': 'IfOrNot',
+      'type': 'If',
       'actual': 'actual',
       'expect': 'expect',
       'matched': {
@@ -55,7 +55,7 @@ void main() {
         Builder(
           builder: (BuildContext context) {
             final widget = DynamicWidgetBuilder.buildFromMap(widgetMap, context, null);
-            expect(widget.runtimeType, equals(IfOrNot));
+            expect(widget.runtimeType, equals(If));
 
             final map = DynamicWidgetBuilder.export(widget, null);
             expect(map, equals(widgetMap));

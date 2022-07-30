@@ -94,7 +94,7 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                     Positioned(
                       right: 5,
                       bottom: -3,
-                      child: IfOrNot.boolString(
+                      child: If.bool(
                         isliked,
                         const Text('♥', style: TextStyle(color: Colors.red, fontSize: 30)),
                         const Text('♡', style: TextStyle(color: Colors.red, fontSize: 30)),
