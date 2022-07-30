@@ -7,7 +7,7 @@ See also: https://pub.dev/packages/dynamic_component
 - [x] Dynamic variable  
 - [x] Dynamic UI  
 - [x] UI Logic  
-  - [x] If Or Not
+  - [x] If
   - [x] Tap Event (Multiple)
   - [x] When
 - [x] codegen

@@ -1,3 +1,8 @@
+## 0.1.2
+### Changed
+- `IfOrNot` rename to `If`
+- `IfOrNot.boolString` rename to `If.bool`
+
 ## 0.1.1
 ### Changed
 - `DynamicComponent.init` no longer required
