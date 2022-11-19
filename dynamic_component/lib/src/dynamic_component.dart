@@ -12,9 +12,6 @@ typedef OnTap = void Function(String event);
 /// 支持参数传递的动态化组件。
 /// 主要原理是在导出的json中，标记特殊字段，在解析时，将字段替换为实际参数，再交由 [DynamicWidgetBuilder] 解析为静态 Widget。
 abstract class DynamicComponent extends StatelessWidget {
-  /// 如果要在开发模式，强行使用 dsl，则设置为 true
-  static var kTestDSL = false;
-
   static bool _defaultParserInited = false;
 
   /// 初始化，主要就是把本库必要的 [WidgetParser] 加入 [DynamicWidgetBuilder]
@@ -47,18 +44,21 @@ abstract class DynamicComponent extends StatelessWidget {
   /// 关系表，导出用
   Map<String, dynamic>? get dataRelation;
 
+  final bool isDSL;
+
   const DynamicComponent({
     this.data,
     this.onTap,
     Key? key,
     this.initialWidget,
+    this.isDSL = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     _initDefaultParsersIfNess();
 
-    if (dslInfo == null || (kDebugMode && !kTestDSL)) {
+    if (dslInfo == null || (kDebugMode && !isDSL)) {
       return localBuild(context);
     }
 

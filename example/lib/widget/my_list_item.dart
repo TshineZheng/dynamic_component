@@ -17,17 +17,15 @@ part 'my_list_item.g.dart';
 ])
 class MyListItem extends DynamicComponent with _$MyListItemComponent {
   MyListItem({
-    required Map<String, dynamic> data,
-    Key? key,
-    OnTap? onTap,
-  }) : super(
-            key: key,
-            data: data,
-            onTap: onTap,
-            initialWidget: const AspectRatio(
-              aspectRatio: 640 / 480,
-              child: Center(child: Text('Loading……')),
-            ));
+    required super.data,
+    super.key,
+    super.onTap,
+    super.isDSL = false,
+    super.initialWidget = const AspectRatio(
+      aspectRatio: 640 / 480,
+      child: Center(child: Text('Loading……')),
+    ),
+  });
 
   /// 作用同 StatelessWidget.build
   @override

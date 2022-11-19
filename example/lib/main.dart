@@ -1,18 +1,15 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
+import 'dart:ui';
 
-import 'package:dynamic_component/dynamic_component.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:example/util/widget_json.dart';
 import 'package:example/widget/flexible_parser.dart';
 import 'package:example/widget/image_widget.dart';
 import 'package:faker_dart/faker_dart.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'model/goods.dart';
@@ -39,6 +36,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      scrollBehavior: AppScrollBehavior(),
       home: const MyHomePage(),
     );
   }
@@ -53,6 +51,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late List<Goods> goodsList;
+
+  bool kTestDSL = false;
 
   @override
   void initState() {
@@ -71,11 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
-          controller: kIsWeb
-              ? null
-              : Platform.isWindows
-                  ? AdjustableScrollController(80)
-                  : null,
           child: MasonryGridView.count(
             // 展示几列
             crossAxisCount: max(MediaQuery.of(context).size.width ~/ 240, 1),
@@ -92,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (context, index) {
               final data = goodsList[index];
               return MyListItem(
+                isDSL: kTestDSL,
                 data: data.toJson(),
                 onTap: (event) => onItemClick(index, data, event),
               );
@@ -113,13 +109,13 @@ class _MyHomePageState extends State<MyHomePage> {
             heroTag: 2,
             onPressed: () {
               setState(() {
-                DynamicComponent.kTestDSL = !DynamicComponent.kTestDSL;
+                kTestDSL = !kTestDSL;
               });
             },
             tooltip: 'switch build mode',
             child: Center(
               child: Text(
-                '${DynamicComponent.kTestDSL ? 'DSL' : 'DEV'}\nMODE',
+                '${kTestDSL ? 'DSL' : 'DEV'}\nMODE',
                 textAlign: TextAlign.center,
               ),
             ),
@@ -151,16 +147,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class AdjustableScrollController extends ScrollController {
-  AdjustableScrollController([int extraScrollSpeed = 40]) {
-    super.addListener(() {
-      ScrollDirection scrollDirection = super.position.userScrollDirection;
-      if (scrollDirection != ScrollDirection.idle) {
-        double scrollEnd =
-            super.offset + (scrollDirection == ScrollDirection.reverse ? extraScrollSpeed : -extraScrollSpeed);
-        scrollEnd = min(super.position.maxScrollExtent, max(super.position.minScrollExtent, scrollEnd));
-        jumpTo(scrollEnd);
-      }
-    });
-  }
+class AppScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.trackpad,
+      };
 }
