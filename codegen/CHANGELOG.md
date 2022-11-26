@@ -1,4 +1,8 @@
-# 0.1.1
+## 0.2.0
+### Added
+- Variables can be obtained from sub level  of 'data'
+
+## 0.1.1
 ### Changed
 - Update `dynamic_component` version
 

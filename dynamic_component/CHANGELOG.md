@@ -1,4 +1,9 @@
+## 0.2.0
+### Added
+- Variables can be obtained from sub level  of 'data'
+
 ## 0.1.3
+### Changed
 - 'kTestDSL' control by component self
 
 ## 0.1.2

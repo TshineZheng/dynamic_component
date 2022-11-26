@@ -1,6 +1,6 @@
 name: dynamic_component_codegen
 description: Provider builder and generator for package dynamic_component.
-version: 0.1.1
+version: 0.2.0
 homepage: https://github.com/TshineZheng/dynamic_component
 
 environment:
@@ -15,7 +15,7 @@ dependencies:
   analyzer: '>=2.0.0 <5.0.0'
   source_helper: ^1.3.2
   recase: ^4.0.0
-  dynamic_component: '>= 0.1.1 <0.2.0'
+  dynamic_component: '>= 0.2.0 <0.3.0'
 
 # dependencies_overrides:
 #   dynamic_component:
