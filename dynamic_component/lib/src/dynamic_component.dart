@@ -75,7 +75,30 @@ abstract class DynamicComponent extends StatelessWidget {
           }
           return localBuild(context);
         }
-        return snapshot.hasData && snapshot.data != null ? snapshot.data! : const SizedBox.shrink();
+
+        final rtWidget = snapshot.hasData && snapshot.data != null ? snapshot.data! : const SizedBox.shrink();
+
+        if (kDebugMode) {
+          return Stack(
+            children: [
+              rtWidget,
+              const Banner(
+                message: "DSL",
+                location: BannerLocation.topStart,
+                color: Colors.blue,
+              ),
+              // const Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Banner(
+              //     message: "DSL",
+              //     location: BannerLocation.topStart,
+              //   ),
+              // ),
+            ],
+          );
+        }
+
+        return rtWidget;
       },
     );
   }
