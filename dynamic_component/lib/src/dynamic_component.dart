@@ -109,6 +109,7 @@ abstract class DynamicComponent extends StatelessWidget {
   Widget buildWidget(BuildContext context);
 
   Map<String, dynamic> exportJson(BuildContext context) {
+    _initDefaultParsersIfNess();
     return {
       "type": widgetType,
       "dataRelation": dataRelation,
@@ -223,10 +224,11 @@ class DSLInfo {
     var childString = childDSL;
     // ignore: avoid_function_literals_in_foreach_calls
     dataRelation?.entries.forEach((element) {
-      if (data.containsKey(element.value)) {
+      final dataValue = JsonUtil.jsonGet(data, element.value);
+      if (dataValue != null) {
         childString = childString.replaceAll(
           element.key,
-          data[element.value]!.toString().replaceAll('\n', '\\n'),
+          dataValue.toString().replaceAll('\n', '\\n'),
         );
       }
     });

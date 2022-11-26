@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final rng = Random();
     Iterable l = json.decode(goodsData);
     goodsList = List<Goods>.from(l.map((model) => Goods.fromJson(model)).map((e) => e.copyWith(
-          goodsImage: Faker.instance.image.loremPicsum.image(seed: e.goodsName),
+          goodsImage: [Faker.instance.image.loremPicsum.image(seed: e.goodsName)],
           type: rng.nextInt(4),
         )));
   }
@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           FloatingActionButton(
             heroTag: 1,
-            onPressed: () => CodeEditorPage.push(context, MyListItem.export()),
+            onPressed: () => CodeEditorPage.push(context, MyListItem()),
             tooltip: 'export dsl',
             child: const Text('Export'),
           ),
@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
       case 'like':
         setState(() {
-          goodsList[index] = goods.copyWith(isliked: !(goods.isliked));
+          goodsList[index] = goods.copyWith(isliked: !(goods.isliked ?? false));
         });
         print('点击了 ID = ${goods.goodsId} 的点赞');
         break;

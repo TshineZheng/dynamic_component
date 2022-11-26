@@ -10,15 +10,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  final List<DynamicComponent> components = [
+    MyListItem(),
+  ];
+
   setUp(() {
     DynamicWidgetBuilder.addParser(ImageWidgetParser());
     DynamicWidgetBuilder.addParser(FlexibleParser());
-    DynamicWidgetBuilder.addParser(ImageWidgetParser());
   });
-
-  final List<DynamicComponent> components = [
-    MyListItem.export(),
-  ];
 
   testWidgets('ExportAll', (WidgetTester tester) async {
     await tester.pumpWidget(
@@ -34,7 +33,9 @@ void main() {
 
           if (file.existsSync()) file.deleteSync();
 
-          file.writeAsStringSync(jsonEncode(fileJson));
+          // file.writeAsStringSync(jsonEncode(fileJson));
+
+          file.writeAsStringSync(const JsonEncoder.withIndent("     ").convert(fileJson));
 
           return const Placeholder();
         },

@@ -29,8 +29,11 @@ class DynamicComponentGenerator extends GeneratorForAnnotation<Component> {
 
     final clazz = element;
 
-    final vars = annotation.read('variables').listValue.map((e) => e.toStringValue()!).toList();
-    final varsCamelCase = vars.map((e) => e.camelCase).toList();
+    final varDims = annotation.read('variables').listValue.map((e) => e.toStringValue()!).toList();
+
+    //TODO: 需要对 [varDims] 做合法验证
+
+    final varsNameCamelCase = varDims.map((e) => e.replaceAll('[', '').replaceAll(']', '').camelCase).toList();
 
     final widgetName = clazz.name;
     final widgetNameCamelCase = widgetName.camelCase;
@@ -40,11 +43,11 @@ class DynamicComponentGenerator extends GeneratorForAnnotation<Component> {
     final variablesDim = StringBuffer();
     final variablesSet = StringBuffer();
 
-    for (var i = 0; i < vars.length; i++) {
-      dataRelation.writeln('"#${varsCamelCase[i]}#" : "${vars[i]}",');
-      dataForExport.writeln('"${vars[i]}" : "#${varsCamelCase[i]}#",');
-      variablesDim.writeln('late final String ${varsCamelCase[i]};');
-      variablesSet.writeln('${varsCamelCase[i]} = data?["${vars[i]}"]?.toString() ?? "";');
+    for (var i = 0; i < varDims.length; i++) {
+      dataRelation.writeln('\'#${varsNameCamelCase[i]}#\' : \'${varDims[i]}\',');
+      dataForExport.writeln('${varsNameCamelCase[i]} = \'#${varsNameCamelCase[i]}#\';');
+      variablesDim.writeln('late final String ${varsNameCamelCase[i]};');
+      variablesSet.writeln('${varsNameCamelCase[i]} = JsonUtil.jsonGet(data,"${varDims[i]}")?.toString() ?? "";');
     }
 
     return tempCode(

@@ -9,9 +9,6 @@ String tempCode({
   required String variablesSet,
 }) {
   return """
-const _${widgetNameCamelCase}DataForExport = {
-  ${dataForExport}
-};
 
 mixin _\$${widgetName}Component on DynamicComponent {
   ${variablesDim}
@@ -20,9 +17,18 @@ mixin _\$${widgetName}Component on DynamicComponent {
     ${variablesSet}
   }
 
+  void _setVariables4Export() {
+    ${dataForExport}
+  }
+
   @override
   Widget localBuild(BuildContext context) {
-    _setVariables();
+    if(null != data){
+      _setVariables();
+    }else{
+      _setVariables4Export();
+    }
+    
     return super.localBuild(context);
   }
 
@@ -34,5 +40,6 @@ mixin _\$${widgetName}Component on DynamicComponent {
     ${dataRelation}
   };
 }
+
 """;
 }

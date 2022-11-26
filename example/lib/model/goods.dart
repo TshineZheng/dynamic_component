@@ -1,90 +1,87 @@
-import 'package:flutter/foundation.dart';
-
-@immutable
 class Goods {
-  const Goods({
-    required this.goodsId,
-    required this.goodsName,
-    required this.goodsDetail,
-    required this.goodsImage,
-    required this.isliked,
-    required this.createdAt,
-    required this.type,
-  });
+    String? createdAt;
+    String? goodsName;
+    List<String>? goodsImage;
+    String? goodsDetail;
+    bool? isliked;
+    int? type;
+    ShopInfo? shopInfo;
+    String? goodsId;
 
-  final String goodsId;
-  final String goodsName;
-  final String goodsDetail;
-  final String goodsImage;
-  final bool isliked;
-  final String createdAt;
-  final int type;
+    Goods({this.createdAt, this.goodsName, this.goodsImage, this.goodsDetail, this.isliked, this.type, this.shopInfo, this.goodsId});
 
-  factory Goods.fromJson(Map<String, dynamic> json) => Goods(
-      goodsId: json['goods_id'].toString(),
-      goodsName: json['goods_name'].toString(),
-      goodsDetail: json['goods_detail'].toString(),
-      goodsImage: json['goods_image'].toString(),
-      isliked: json['isliked'] as bool,
-      createdAt: json['createdAt'].toString(),
-      type: json['type'] as int);
+    Goods.fromJson(Map<String, dynamic> json) {
+        createdAt = json["createdAt"];
+        goodsName = json["goods_name"];
+        goodsImage = json["goods_image"] == null ? null : List<String>.from(json["goods_image"]);
+        goodsDetail = json["goods_detail"];
+        isliked = json["isliked"];
+        type = json["type"];
+        shopInfo = json["shop_info"] == null ? null : ShopInfo.fromJson(json["shop_info"]);
+        goodsId = json["goods_id"];
+    }
 
-  Map<String, dynamic> toJson() => {
-        'goods_id': goodsId,
-        'goods_name': goodsName,
-        'goods_detail': goodsDetail,
-        'goods_image': goodsImage,
-        'isliked': isliked,
-        'createdAt': createdAt,
-        'type': type
-      };
+    Map<String, dynamic> toJson() {
+        final Map<String, dynamic> _data = <String, dynamic>{};
+        _data["createdAt"] = createdAt;
+        _data["goods_name"] = goodsName;
+        if(goodsImage != null) {
+            _data["goods_image"] = goodsImage;
+        }
+        _data["goods_detail"] = goodsDetail;
+        _data["isliked"] = isliked;
+        _data["type"] = type;
+        if(shopInfo != null) {
+            _data["shop_info"] = shopInfo?.toJson();
+        }
+        _data["goods_id"] = goodsId;
+        return _data;
+    }
 
-  Goods clone() => Goods(
-      goodsId: goodsId,
-      goodsName: goodsName,
-      goodsDetail: goodsDetail,
-      goodsImage: goodsImage,
-      isliked: isliked,
-      createdAt: createdAt,
-      type: type);
-
-  Goods copyWith(
-          {String? goodsId,
-          String? goodsName,
-          String? goodsDetail,
-          String? goodsImage,
-          bool? isliked,
-          String? createdAt,
-          int? type}) =>
-      Goods(
-        goodsId: goodsId ?? this.goodsId,
-        goodsName: goodsName ?? this.goodsName,
-        goodsDetail: goodsDetail ?? this.goodsDetail,
-        goodsImage: goodsImage ?? this.goodsImage,
-        isliked: isliked ?? this.isliked,
+    Goods copyWith({
+        String? createdAt,
+        String? goodsName,
+        List<String>? goodsImage,
+        String? goodsDetail,
+        bool? isliked,
+        int? type,
+        ShopInfo? shopInfo,
+        String? goodsId,
+    }) => Goods(
         createdAt: createdAt ?? this.createdAt,
+        goodsName: goodsName ?? this.goodsName,
+        goodsImage: goodsImage ?? this.goodsImage,
+        goodsDetail: goodsDetail ?? this.goodsDetail,
+        isliked: isliked ?? this.isliked,
         type: type ?? this.type,
-      );
+        shopInfo: shopInfo ?? this.shopInfo,
+        goodsId: goodsId ?? this.goodsId,
+    );
+}
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Goods &&
-          goodsId == other.goodsId &&
-          goodsName == other.goodsName &&
-          goodsDetail == other.goodsDetail &&
-          goodsImage == other.goodsImage &&
-          isliked == other.isliked &&
-          createdAt == other.createdAt &&
-          type == other.type;
+class ShopInfo {
+    String? shopName;
+    String? shopLogo;
 
-  @override
-  int get hashCode =>
-      goodsId.hashCode ^
-      goodsName.hashCode ^
-      goodsDetail.hashCode ^
-      goodsImage.hashCode ^
-      isliked.hashCode ^
-      createdAt.hashCode ^
-      type.hashCode;
+    ShopInfo({this.shopName, this.shopLogo});
+
+    ShopInfo.fromJson(Map<String, dynamic> json) {
+        shopName = json["shop_name"];
+        shopLogo = json["shop_logo"];
+    }
+
+    Map<String, dynamic> toJson() {
+        final Map<String, dynamic> _data = <String, dynamic>{};
+        _data["shop_name"] = shopName;
+        _data["shop_logo"] = shopLogo;
+        return _data;
+    }
+
+    ShopInfo copyWith({
+        String? shopName,
+        String? shopLogo,
+    }) => ShopInfo(
+        shopName: shopName ?? this.shopName,
+        shopLogo: shopLogo ?? this.shopLogo,
+    );
 }

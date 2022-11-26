@@ -10,14 +10,16 @@ part 'my_list_item.g.dart';
 @Component(variables: [
   'goods_name',
   'goods_detail',
-  'goods_image',
+  'goods_image.0',
   'isliked',
   'createdAt',
   'type',
+  'shop_info.shop_name',
+  'shop_info.shop_logo'
 ])
 class MyListItem extends DynamicComponent with _$MyListItemComponent {
   MyListItem({
-    required super.data,
+    super.data,
     super.key,
     super.onTap,
     super.isDSL = false,
@@ -58,7 +60,7 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
                       child: AspectRatio(
                         aspectRatio: 640 / 480,
                         child: ImageWidget(
-                          url: goodsImage,
+                          url: goodsImage0,
                           fit: BoxFit.fitWidth,
                           cache: true,
                         ).tap('image', onTap),
@@ -145,6 +147,4 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
 
   @override
   DSLInfo? get dslInfo => getWidgetDSLInfo(widgetType);
-
-  static DynamicComponent export() => MyListItem(data: _myListItemDataForExport);
 }
