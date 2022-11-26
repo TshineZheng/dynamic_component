@@ -25,7 +25,7 @@ class If extends StatelessWidget {
 
   factory If.bool(String boolValue, Widget t, Widget? f) {
     return If(
-      actual: boolValue == 'true' ? 'true' : 'false',
+      actual: boolValue,
       expect: 'true',
       matched: t,
       failed: f ?? const SizedBox.shrink(),

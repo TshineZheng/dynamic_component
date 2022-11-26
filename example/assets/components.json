@@ -230,7 +230,7 @@
                                                                  "event": "like",
                                                                  "child": {
                                                                       "type": "If",
-                                                                      "actual": "false",
+                                                                      "actual": "#isliked#",
                                                                       "expect": "true",
                                                                       "matched": {
                                                                            "type": "Text",
