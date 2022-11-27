@@ -87,13 +87,6 @@ abstract class DynamicComponent extends StatelessWidget {
                 location: BannerLocation.topStart,
                 color: Colors.blue,
               ),
-              // const Align(
-              //   alignment: Alignment.topLeft,
-              //   child: Banner(
-              //     message: "DSL",
-              //     location: BannerLocation.topStart,
-              //   ),
-              // ),
             ],
           );
         }
@@ -108,20 +101,8 @@ abstract class DynamicComponent extends StatelessWidget {
     ClickListener listener = _defaultClickListener;
     if (onTap != null) listener = _TapClickListener(onTap!);
     final childDSL = dslInfo?.getDataChildDSL(data ?? {}) ?? '';
-
     /// 将带数据的 json 解析为静态组件
-    final ret = DynamicWidgetBuilder.build(childDSL, context, listener);
-
-    if (kDebugMode) {
-      return Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.blueAccent),
-        ),
-        child: ret!,
-      );
-    }
-
-    return ret!;
+    return DynamicWidgetBuilder.build(childDSL, context, listener)!;
   }
 
   Widget localBuild(BuildContext context) {
