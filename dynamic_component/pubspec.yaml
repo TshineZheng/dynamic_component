@@ -1,6 +1,6 @@
 name: dynamic_component
 description: Build your Dynamic components that support simple logic and variable.
-version: 0.2.0+1
+version: 0.2.0+2
 homepage: https://github.com/TshineZheng/dynamic_component
 
 environment:

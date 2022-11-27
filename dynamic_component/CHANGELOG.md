@@ -1,10 +1,7 @@
-## 0.2.0+1
-### Added
-- show 'DSL' banner when kDebugMode && isDSL
-
 ## 0.2.0
 ### Added
 - Variables can be obtained from sub level  of 'data'
+- show 'DSL' banner when kDebugMode && isDSL
 
 ## 0.1.3
 ### Changed
