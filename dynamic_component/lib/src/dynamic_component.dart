@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dynamic_component/dynamic_component.dart';
+import 'package:dynamic_component/src/utils/widget_size_offset_wrapper.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,9 @@ abstract class DynamicComponent extends StatelessWidget {
   /// 关系表，导出用
   Map<String, dynamic>? get dataRelation;
 
+  /// 当 DSL 生成成功后回调 DSL 尺寸
+  final Function(double width, double height)? onDslSize;
+
   final bool isDSL;
 
   const DynamicComponent({
@@ -52,6 +56,7 @@ abstract class DynamicComponent extends StatelessWidget {
     Key? key,
     this.initialWidget,
     this.isDSL = false,
+    this.onDslSize,
   }) : super(key: key);
 
   @override
@@ -76,7 +81,16 @@ abstract class DynamicComponent extends StatelessWidget {
           return localBuild(context);
         }
 
-        final rtWidget = snapshot.hasData && snapshot.data != null ? snapshot.data! : const SizedBox.shrink();
+        var rtWidget = snapshot.hasData && snapshot.data != null ? snapshot.data! : const SizedBox.shrink();
+
+        if (onDslSize != null) {
+          rtWidget = WidgetSizeOffsetWrapper(
+            onSizeChange: (size) {
+              if (size.width != 0 || size.height != 0) onDslSize!(size.width, size.height);
+            },
+            child: rtWidget,
+          );
+        }
 
         if (kDebugMode) {
           return Stack(
@@ -101,6 +115,7 @@ abstract class DynamicComponent extends StatelessWidget {
     ClickListener listener = _defaultClickListener;
     if (onTap != null) listener = _TapClickListener(onTap!);
     final childDSL = dslInfo?.getDataChildDSL(data ?? {}) ?? '';
+
     /// 将带数据的 json 解析为静态组件
     return DynamicWidgetBuilder.build(childDSL, context, listener)!;
   }

@@ -86,10 +86,16 @@ class _MyHomePageState extends State<MyHomePage> {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               final data = goodsList[index];
-              return MyListItem(
-                isDSL: kTestDSL,
-                data: data.toJson(),
-                onTap: (event) => onItemClick(index, data, event),
+              return Container(
+                constraints: const BoxConstraints(minHeight: 200),
+                child: MyListItem(
+                  isDSL: kTestDSL,
+                  data: data.toJson(),
+                  onTap: (event) => onItemClick(index, data, event),
+                  onDslSize: (width, height) {
+                    debugPrint('$index = $width x $height');
+                  },
+                ),
               );
             },
           ),

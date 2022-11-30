@@ -23,10 +23,11 @@ class MyListItem extends DynamicComponent with _$MyListItemComponent {
     super.key,
     super.onTap,
     super.isDSL = false,
-    super.initialWidget = const AspectRatio(
-      aspectRatio: 640 / 480,
-      child: Center(child: Text('Loading……')),
-    ),
+    // super.initialWidget = const AspectRatio(
+    //   aspectRatio: 640 / 480,
+    //   child: Center(child: Text('Loading……')),
+    // ),
+    super.onDslSize,
   });
 
   /// 作用同 StatelessWidget.build
