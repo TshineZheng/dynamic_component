@@ -1,3 +1,7 @@
+## 0.2.1
+### Added
+- Callback 'onDslSize'  after dsl widget build
+
 ## 0.2.0
 ### Added
 - Variables can be obtained from sub level  of 'data'
