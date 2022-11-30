@@ -63,7 +63,8 @@ abstract class DynamicComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     _initDefaultParsersIfNess();
 
-    if (dslInfo == null || (kDebugMode && !isDSL)) {
+    // 如果不是dsl模式，或者没有 dslInfo 则直接本地build
+    if (!isDSL || dslInfo == null) {
       return localBuild(context);
     }
 
@@ -78,6 +79,7 @@ abstract class DynamicComponent extends StatelessWidget {
             // print(dslInfo?.getDataChildDSL(data ?? {}) ?? '');
             print(snapshot.stackTrace);
           }
+          // 如果dsl解出错，则降级为本地build
           return localBuild(context);
         }
 
@@ -93,15 +95,11 @@ abstract class DynamicComponent extends StatelessWidget {
         }
 
         if (kDebugMode) {
-          return Stack(
-            children: [
-              rtWidget,
-              const Banner(
-                message: "DSL",
-                location: BannerLocation.topStart,
-                color: Colors.blue,
-              ),
-            ],
+          return Banner(
+            message: "DSL",
+            location: BannerLocation.topStart,
+            color: Colors.blue,
+            child: rtWidget,
           );
         }
 
